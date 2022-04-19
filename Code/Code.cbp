@@ -33,6 +33,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="../merge.h" />
+		<Unit filename="../quicksort.h" />
 		<Unit filename="TestHelper.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>

@@ -2,6 +2,6 @@
 <CodeBlocks_workspace_file>
 	<Workspace title="Workspace">
 		<Project filename="Code/Code.cbp" />
-		<Project filename="Code/Merge.cbp" />
+		<Project filename="Code/SortTest.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
