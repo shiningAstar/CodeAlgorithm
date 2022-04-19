@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1650187185 source:d:\code\code\sorttest.cpp
+	<vector>
+	<stack>
+	<iostream>
+	<cstdlib>
+	<ctime>
+	"TestHelper.h"
+	"../merge.h"
+	"../quicksort.h"
+
+1650119789 d:\code\code\testhelper.h
+
+1650188797 d:\code\merge.h
+
+1650186802 d:\code\quicksort.h
+
