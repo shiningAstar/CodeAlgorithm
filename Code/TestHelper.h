@@ -21,4 +21,18 @@ bool isOrdered(vector<int> &nums)
     return true;
 }
 
+void printHeap(vector<int> &heap)
+{
+    int lg2 = log(heap.size() - 1) / log(2);
+    for(int i = 0, k = 0; i <= lg2; i++)
+    {
+        if(i < lg2)
+            cout<<setw((lg2 - i) * 5)<<" ";
+        for(int j = k; j < k * 2 + 1; j++)
+
+            count<<"     ";
+
+    }
+}
+
 #endif // TESTHELPER_H_INCLUDED

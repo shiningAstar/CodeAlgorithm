@@ -1,16 +1,19 @@
 #ifndef HEAP_H_INCLUDED
 #define HEAP_H_INCLUDED
 
-//å®ç°æœ€å¤§å †
+//ÊµÏÖ×î´ó¶Ñ
 /*********************************/
-/* å †ç”¨æ•°ç»„å­˜å‚¨ï¼Œæ ¹èŠ‚ç‚¹åœ¨ä¸‹æ ‡0å¼€å§‹ */
+/* ¶ÑÓÃÊı×é´æ´¢£¬¸ù½ÚµãÔÚÏÂ±ê0¿ªÊ¼ */
 
-void shiftUp(vector<int> heap, int k)
+void __shiftUp(vector<int> &heap, int k)
 {
     int p = (k - 1) / 2;
     int kv = heap[k];
     if(heap[p] >= kv)
         return;
+    heap[k] = heap[p];
+    k = p;
+    p = (k - 1) / 2;
     while(k > 0 && heap[p] < kv)
     {
         heap[k] = heap[p];
@@ -19,6 +22,67 @@ void shiftUp(vector<int> heap, int k)
     }
     heap[k] = kv;
 }
+
+void __shiftDown(vector<int> &heap, int k)
+{
+    int c = k * 2 + 1;
+    int kv = heap[k];
+    if(c + 1 < heap.size() && heap[c + 1] > heap[c])
+            c++;
+    if(heap[c] <= kv)
+        return;
+    heap[k] = heap[c];
+    k = c;
+    c = k * 2 + 1;
+    while(c < heap.size())
+    {
+        if(c + 1 < heap.size() && heap[c + 1] > heap[c])
+            c++;
+        if(heap[c] <= kv)
+            break;
+        heap[k] = heap[c];
+        k = c;
+        c = k * 2 + 1;
+    }
+}
+
+//¶Ñ²åÈëÔªËØ£¬ÔÚ×îºóÎ»ÖÃµ÷ÓÃshiftUp
+void insertHeap(vector<int> &heap, int i)
+{
+    heap.push_back(i);
+    __shiftUp(heap, heap.size() - 1);
+}
+
+//½¨Á¢¶Ñ£¬ÔÚµÚÒ»¸ö·ÇÒ¶×Ó½áµã¿ªÊ¼ÒÀ´Îµ÷ÓÃshiftDown
+void heapify(vector <int> &heap)
+{
+    for(int i = (heap.size() - 1 - 1) / 2; i >= 0; i--)
+        __shiftDown(heap, i);
+}
+
+//È¡³ö×î´óÔªËØ£¬±£³ÖÍêÈ«¶ş²æÊ÷×îºóÒ»¸öÔªËØ·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×î´ó¶ÑĞÔÖÊ
+int extractMax(vector <int> &heap)
+{
+    int ret = heap.front();
+    heap[0] = heap[heap.size() - 1];
+    heap.pop_back();
+    __shiftDown(heap, 0);
+    return ret;
+}
+
+
+//¶ÑÅÅĞò£¬ÀûÓÃ¶Ñ¶¥µã×î´óĞÔÖÊ£¬ÒÀ´ÎÈ¡³ö¶¥µãÓë×îºóÔªËØ½»»»µ÷ÓÃshiftDown£¬ÔÚÔ­¿Õ¼äÊµÏÖÅÅĞò
+void heapSort(vector <int> &heap)
+{
+    heapify(heap);
+    for(int i = heap.size() - 1; i > 0; i--)
+    {
+        swap(heap[0], heap[i]);
+        if(i > 1)
+            __shiftDown(heap, 0);
+    }
+}
+
 
 /*********************************/
 

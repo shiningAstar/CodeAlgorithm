@@ -3,5 +3,6 @@
 	<Workspace title="Workspace">
 		<Project filename="Code/Code.cbp" />
 		<Project filename="Code/SortTest.cbp" />
+		<Project filename="Code/HeapTest.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
