@@ -1,19 +1,15 @@
 #include <vector>
-
 #include <stack>
-
 #include <iostream>
-
+#include <iomanip>
 #include <cstdlib>
-
 #include <ctime>
+#include <math.h>
 
 using namespace std;
 
 #include "TestHelper.h"
-
 #include "../merge.h"
-
 #include "../quicksort.h"
 
 int main()

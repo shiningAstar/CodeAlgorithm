@@ -3,20 +3,36 @@
 
 /* 快速排序 */
 
+#define lessQuickSort(t1, t2) (t1 < t2)
+#define lessEqualQuickSort(t1, t2) (t1 <= t2)
+#define greaterQuickSort(t1, t2) (t1 > t2)
+#define greaterEqualQuickSort(t1, t2) (t1 >= t2)
+#define equalQuickSort(t1, t2) (t1 == t2)
+
+/*template<typename T>
+int compareQuickSort(T t1, T t2)
+{
+    if(t1 < t2)
+        return -1;
+    else
+        return t1 > t2;
+}*/
+
 //递归实现一路快速排序
 /***********************************************/
 
 //按标定点左右分界，近乎有序数组随机标定点避免分界不平衡
-int __partition1(vector<int> &nums, int l, int r)
+template<typename T>
+int __partition1(vector<T> &nums, int l, int r)
 {
     //随机选标定点
     //swap(nums[l], nums[l + rand() % (r - l)]);
-    int v = nums[l];
+    T v = nums[l];
     int i, j;
 
     for(i = l + 1, j = l + 1; i <= r; i++)
     {
-        if(nums[i] < v)
+        if(lessQuickSort(nums[i], v))
         {
             swap(nums[j], nums[i]);
             j++;
@@ -30,7 +46,8 @@ int __partition1(vector<int> &nums, int l, int r)
 }
 
 //对范围[l,r]的数组快速排序
-void __quickSort1(vector<int> &nums, int l, int r)
+template<typename T>
+void __quickSort1(vector<T> &nums, int l, int r)
 {
     if(l >= r)
         return;
@@ -41,7 +58,8 @@ void __quickSort1(vector<int> &nums, int l, int r)
 
 }
 
-void quickSort1(vector<int> &nums)
+template<typename T>
+void quickSort1(vector<T> &nums)
 {
     //随机标定点
     //srand(time(NULL));
@@ -55,19 +73,20 @@ void quickSort1(vector<int> &nums)
 //递归实现两路快速排序，重复元素分散到两边，尽可能平衡
 /***********************************************/
 
-int __partition2(vector<int> &nums, int l, int r)
+template<typename T>
+int __partition2(vector<T> &nums, int l, int r)
 {
     //随机选标定点
     //swap(nums[l], nums[l + rand() % (r - l)]);
-    int v = nums[l];
+    T v = nums[l];
     int i = l + 1, j = r;
 
 
 
     while(true)
     {
-        while(i <= r && nums[i] < v) i++;
-        while(j > l && nums[j] > v) j--;
+        while(i <= r && lessQuickSort(nums[i], v)) i++;
+        while(j > l && greaterQuickSort(nums[j], v)) j--;
         if(i > j) break;
         swap(nums[i], nums[j]);
         i++;
@@ -80,7 +99,8 @@ int __partition2(vector<int> &nums, int l, int r)
 
 }
 
-void __quickSort2(vector<int> &nums, int l, int r)
+template<typename T>
+void __quickSort2(vector<T> &nums, int l, int r)
 {
     if(l >= r)
         return;
@@ -90,8 +110,8 @@ void __quickSort2(vector<int> &nums, int l, int r)
     __quickSort2(nums, q + 1, r);
 }
 
-
-void quickSort2(vector<int> &nums)
+template<typename T>
+void quickSort2(vector<T> &nums)
 {
     __quickSort2(nums, 0, nums.size() - 1);
 }
@@ -103,7 +123,8 @@ void quickSort2(vector<int> &nums)
 //递归实现三路快速排序，标定点大小分两边，标定点重复元素中间，只处理左右两边
 /***********************************************/
 
-void __quickSort3(vector<int> &nums, int l, int r)
+template<typename T>
+void __quickSort3(vector<T> &nums, int l, int r)
 {
     if(l >= r)
         return;
@@ -111,18 +132,18 @@ void __quickSort3(vector<int> &nums, int l, int r)
     //partition
     //随机选标定点
     //swap(nums[l], nums[l + rand() % (r - l)]);
-    int v = nums[l];
+    T v = nums[l];
     int lt = l, gt = r + 1;
 
     for(int i = l + 1; i < gt;)
     {
-        if(nums[i] < v)
+        if(lessQuickSort(nums[i], v))
         {
             lt++;
             swap(nums[lt], nums[i]);
             i++;
         }
-        else if(nums[i] > v)
+        else if(greaterQuickSort(nums[i], v))
         {
             gt--;
             swap(nums[i], nums[gt]);
@@ -138,8 +159,8 @@ void __quickSort3(vector<int> &nums, int l, int r)
     __quickSort3(nums, gt, r);
 }
 
-
-void quickSort3(vector<int> &nums)
+template<typename T>
+void quickSort3(vector<T> &nums)
 {
     __quickSort3(nums, 0, nums.size() - 1);
 }

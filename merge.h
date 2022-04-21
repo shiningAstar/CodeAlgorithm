@@ -3,9 +3,24 @@
 
 /* 归并排序 */
 
+#define lessMerge(t1, t2) (t1 < t2)
+#define lessEqualMerge(t1, t2) (t1 <= t2)
+#define greaterMerge(t1, t2) (t1 > t2)
+#define greaterEqualMerge(t1, t2) (t1 >= t2)
+#define equalMerge(t1, t2) (t1 == t2)
+
+/*template<typename T>
+int compareMerge(T t1, T t2)
+{
+    if(t1 < t2)
+        return -1;
+    else
+        return t1 > t2;
+}*/
 
 //归并两个数组，范围[l,mid][mid+1,r]
-void __merge(vector<int> &nums, int l, int mid, int r, vector<int> &numsSort)
+template<typename T>
+void __merge(vector<T> &nums, int l, int mid, int r, vector<T> &numsSort)
 {
     //临时存储的两部分有序数组归并为一个有序数组
     numsSort.assign(nums.begin() + l, nums.begin() + r + 1);
@@ -17,7 +32,7 @@ void __merge(vector<int> &nums, int l, int mid, int r, vector<int> &numsSort)
             nums[p] = numsSort[j++];
         else if(j > r - l)
             nums[p] = numsSort[i++];
-        else if(numsSort[i] <= numsSort[j])
+        else if(lessEqualMerge(numsSort[i], numsSort[j]))
             nums[p] = numsSort[i++];
         else
             nums[p] = numsSort[j++];
@@ -28,7 +43,8 @@ void __merge(vector<int> &nums, int l, int mid, int r, vector<int> &numsSort)
 /***********************************************/
 //数组下标从0开始
 /* 排序[l,r]范围内数组 */
-void __mergeSort1(vector<int> &nums, int l, int r, vector<int> &numsSort)
+template<typename T>
+void __mergeSort1(vector<T> &nums, int l, int r, vector<T> &numsSort)
 {
     //单个不用排序
     if(l >= r)
@@ -40,14 +56,15 @@ void __mergeSort1(vector<int> &nums, int l, int r, vector<int> &numsSort)
     __mergeSort1(nums, l, mid, numsSort);
     __mergeSort1(nums, mid + 1, r, numsSort);
 
-    if(nums[mid] > nums[mid + 1])
+    if(greaterMerge(nums[mid], nums[mid + 1]))
         __merge(nums, l, mid, r, numsSort);
 
 }
 
-void mergeSort1(vector<int> &nums)
+template<typename T>
+void mergeSort1(vector<T> &nums)
 {
-    vector<int> numsSort;
+    vector<T> numsSort;
     numsSort.reserve(nums.size());
     __mergeSort1(nums, 0, nums.size() - 1, numsSort);
 }
@@ -56,14 +73,15 @@ void mergeSort1(vector<int> &nums)
 /* 递推实现归并排序 */
 /***********************************************/
 
-void mergeSort2(vector<int> &nums)
+template<typename T>
+void mergeSort2(vector<T> &nums)
 {
     stack<pair<pair<int, int>, int>> Sort;
     pair<pair<int, int>, int> sort;
     int l, r;
     int mid;
 
-    vector<int> numsSort;
+    vector<T> numsSort;
 
     numsSort.reserve(nums.size());
 
@@ -89,7 +107,7 @@ void mergeSort2(vector<int> &nums)
             continue;
         }
 
-        if(nums[mid] > nums[mid + 1])
+        if(greaterMerge(nums[mid], nums[mid + 1]))
             __merge(nums, l, mid, r, numsSort);
         Sort.pop();
     }
@@ -100,10 +118,11 @@ void mergeSort2(vector<int> &nums)
 //自底向上实现归并排序
 /***********************************************/
 
-void mergeSort3(vector<int> &nums)
+template<typename T>
+void mergeSort3(vector<T> &nums)
 {
     int n = nums.size();
-    vector<int> numsSort;
+    vector<T> numsSort;
     int l, r;
     int mid;
     numsSort.reserve(n);
@@ -120,7 +139,7 @@ void mergeSort3(vector<int> &nums)
                 break;
             if(r >= n)
                 r = n - 1;
-            if(nums[mid] > nums[mid + 1])
+            if(greaterMerge(nums[mid], nums[mid + 1]))
                 __merge(nums, l, mid, r, numsSort);
         }
     }
