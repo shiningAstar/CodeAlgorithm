@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1650461411 source:/media/asc/_dde_data/Code/Code/HeapTest.cpp
+	<vector>
+	<stack>
+	<iostream>
+	<iomanip>
+	<cstdlib>
+	<ctime>
+	<math.h>
+	"TestHelper.h"
+	"../heap.h"
+
+1650461670 /media/asc/_dde_data/Code/Code/TestHelper.h
+
+1650461941 /media/asc/_dde_data/Code/heap.h
+
