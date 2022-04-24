@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1650801297 source:/media/asc/_dde_data/Code/Code/BSTTest.cpp
+	<vector>
+	<stack>
+	<iostream>
+	<iomanip>
+	<cstdlib>
+	<ctime>
+	<math.h>
+	"TestHelper.h"
+	"../bst.h"
+
+1650461670 /media/asc/_dde_data/Code/Code/TestHelper.h
+
+1650801611 /media/asc/_dde_data/Code/bst.h
+

@@ -76,8 +76,8 @@ void mergeSort1(vector<T> &nums)
 template<typename T>
 void mergeSort2(vector<T> &nums)
 {
-    stack<pair<pair<int, int>, int>> Sort;
-    pair<pair<int, int>, int> sort;
+    stack<pair<int, int>> Sort;
+    pair<int, int> sort, last;
     int l, r;
     int mid;
 
@@ -85,31 +85,43 @@ void mergeSort2(vector<T> &nums)
 
     numsSort.reserve(nums.size());
 
-    Sort.push(pair<pair<int, int>, int>(pair<int, int>(0, nums.size() - 1), -1));
+    sort = pair<int, int>{0, nums.size() - 1};
+    l = 0;
+    r = nums.size() - 1;
+    last = sort;
 
-    while(!Sort.empty())
+    while(!Sort.empty() || l < r)
     {
-        sort = Sort.top();
-        l = sort.first.first;
-        r = sort.first.second;
+        l = sort.first;
+        r = sort.second;
         if(l >= r)
         {
-            Sort.pop();
-            continue;
-        }
-        mid = sort.second;
-        if(mid == -1)
-        {
+            sort = Sort.top();
+            l = sort.first;
+            r = sort.second;
             mid = l + (r - l) / 2;
-            Sort.top().second = mid;
-            Sort.push(pair<pair<int, int>, int>(pair<int, int>(l, mid), -1));
-            Sort.push(pair<pair<int, int>, int>(pair<int, int>(mid + 1, r), -1));
-            continue;
+            pair<int, int> sortr{mid + 1, r};
+            if(mid + 1 < r && last != sortr)
+            {
+                sort = sortr;
+            }
+            else
+            {
+                if(greaterMerge(nums[mid], nums[mid + 1]))
+                    __merge(nums, l, mid, r, numsSort);
+                Sort.pop();
+                last = sort;
+                sort.first = sort.second = 0;
+                l = r = 0;
+            }
         }
-
-        if(greaterMerge(nums[mid], nums[mid + 1]))
-            __merge(nums, l, mid, r, numsSort);
-        Sort.pop();
+        else
+        {
+            Sort.push(sort);
+            mid = l + (r - l) / 2;
+            sort.second = mid;
+            r = mid;
+        }
     }
 
 }

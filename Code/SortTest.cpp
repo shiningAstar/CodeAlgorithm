@@ -9,7 +9,7 @@
 using namespace std;
 
 #include "TestHelper.h"
-#include "../merge.h"
+#include "../mergesort.h"
 #include "../quicksort.h"
 
 int main()

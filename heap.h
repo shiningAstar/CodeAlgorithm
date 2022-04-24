@@ -62,11 +62,35 @@ bool __shiftDown1(vector<T> &heap, int k)
 }
 
 template<typename T>
+//堆最后元素放在头部位置调用shiftDown
+void lastTop1(vector<T> &heap)
+{
+    if(heap.size() > 1)
+        heap[0] = heap[heap.size() - 1];
+    heap.pop_back();
+    if(heap.size() > 1)
+        __shiftDown1(heap, 0);
+}
+
+template<typename T>
 //堆插入元素，在最后位置调用shiftUp
-void insertHeap1(vector<T> &heap, T i)
+void insertHeapLast1(vector<T> &heap, T i)
 {
     heap.push_back(i);
-    __shiftUp1(heap, heap.size() - 1);
+    if(heap.size() > 1)
+        __shiftUp1(heap, heap.size() - 1);
+}
+
+template<typename T>
+//堆插入元素，在头位置调用shiftDown
+void insertHeapTop1(vector<T> &heap, T i)
+{
+    if(heap.size() > 0)
+        heap[0] = i;
+    else
+        heap.push_back(i);
+    if(heap.size() > 1)
+        __shiftDown1(heap, 0);
 }
 
 template<typename T>
@@ -79,13 +103,30 @@ void heapify1(vector <T> &heap)
 
 template<typename T>
 //取出最大元素，保持完全二叉树最后一个元素放在根调用shiftDown保持最大堆性质
-T extractMax1(vector <T> &heap)
+bool extractMaxLast1(vector <T> &heap, T &max)
 {
-    T ret = heap[0];
-    heap[0] = heap[heap.size() - 1];
+    if(heap.size() == 0)
+        return false;
+    max = heap[0];
+    if(heap.size() > 1)
+        heap[0] = heap[heap.size() - 1];
     heap.pop_back();
-    __shiftDown1(heap, 0);
-    return ret;
+    if(heap.size() > 1)
+        __shiftDown1(heap, 0);
+    return true;
+}
+
+template<typename T>
+//取出最大元素，元素i放在根调用shiftDown保持最大堆性质
+bool extractMaxItem1(vector <T> &heap, T &max, T i)
+{
+    if(heap.size() == 0)
+        return false;
+    max = heap[0];
+    heap[0] = i;
+    if(heap.size() > 1)
+        __shiftDown1(heap, 0);
+    return true;
 }
 
 template<typename T>
@@ -157,11 +198,35 @@ bool __shiftDown2(vector<T> &heap, int k)
 }
 
 template<typename T>
+//堆最后元素放在头部位置调用shiftDown
+void lastTop2(vector<T> &heap)
+{
+    if(heap.size() > 1)
+        heap[0] = heap[heap.size() - 1];
+    heap.pop_back();
+    if(heap.size() > 1)
+        __shiftDown2(heap, 0);
+}
+
+template<typename T>
 //堆插入元素，在最后位置调用shiftUp
-void insertHeap2(vector<T> &heap, T i)
+void insertHeapLast2(vector<T> &heap, T i)
 {
     heap.push_back(i);
-    __shiftUp2(heap, heap.size() - 1);
+    if(heap.size() > 1)
+        __shiftUp2(heap, heap.size() - 1);
+}
+
+template<typename T>
+//堆插入元素，在头位置调用shiftDown
+void insertHeapTop2(vector<T> &heap, T i)
+{
+    if(heap.size() > 0)
+        heap[0] = i;
+    else
+        heap.push_back(i);
+    if(heap.size() > 1)
+        __shiftDown2(heap, 0);
 }
 
 template<typename T>
@@ -173,14 +238,31 @@ void heapify2(vector <T> &heap)
 }
 
 template<typename T>
-//取出最小元素，保持完全二叉树最后一个元素放在根调用shiftDown保持最大堆性质
-T extractMin2(vector <T> &heap)
+//取出最小元素，保持完全二叉树最后一个元素放在根调用shiftDown保持最小堆性质
+bool extractMinLast2(vector <T> &heap, T &min)
 {
-    T ret = heap[0];
-    heap[0] = heap[heap.size() - 1];
+    if(heap.size() == 0)
+        return false;
+    min = heap[0];
+    if(heap.size() > 1)
+        heap[0] = heap[heap.size() - 1];
     heap.pop_back();
-    __shiftDown2(heap, 0);
-    return ret;
+    if(heap.size() > 1)
+        __shiftDown2(heap, 0);
+    return true;
+}
+
+template<typename T>
+//取出最小元素，元素i放在根调用shiftDown保持最小堆性质
+bool extractMinItem2(vector <T> &heap, T &min, T i)
+{
+    if(heap.size() == 0)
+        return false;
+    min = heap[0];
+    heap[0] = i;
+    if(heap.size() > 1)
+        __shiftDown2(heap, 0);
+    return true;
 }
 
 template<typename T>
@@ -257,13 +339,77 @@ bool __shiftDown3(vector<T> &array, vector<int> &heap, vector<int> &heappos, int
     return true;
 }
 
+/*
+//T i为元素值
 template<typename T>
 //堆插入元素，在最后位置调用shiftUp
-void insertHeap3(vector<T> &array, vector<int> &heap, vector<int> &heappos, T i)
+void insertHeapLast3(vector<T> &array, vector<int> &heap, vector<int> &heappos, T i)
 {
     array.push_back(i);
     heap.push_back(array.size() - 1);
-    __shiftUp3(array, heap, heappos, heap.size() - 1);
+    heappos.push_back(heap.size() - 1);
+    if(heap.size() > 1)
+        __shiftUp3(array, heap, heappos, heap.size() - 1);
+}
+
+template<typename T>
+//堆插入元素，在头位置调用shiftDown
+void insertHeapTop3(vector<T> &array, vector<int> &heap, vector<int> &heappos, T i)
+{
+    if(heap.size() > 0)
+    {
+        array[heap[0]] = i;
+    }
+    else
+    {
+        array.push_back(i);
+        heap.push_back(array.size() - 1);
+        heappos.push_back(0);
+    }
+
+    if(heap.size() > 1)
+        __shiftDown3(array, heap, heappos, 0);
+}*/
+
+template<typename T>
+//堆最后元素放在头部位置调用shiftDown
+void lastTop3(vector<T> &array, vector<int> &heap, vector<int> &heappos)
+{
+    if(heap.size() > 1)
+        heap[0] = heap[heap.size() - 1];
+    heap.pop_back();
+    if(heap.size() > 1)
+        __shiftDown3(array, heap, heappos, 0);
+}
+
+//int i为元素在array中索引
+template<typename T>
+//堆插入元素，在最后位置调用shiftUp
+void insertHeapLast3(vector<T> &array, vector<int> &heap, vector<int> &heappos, int i)
+{
+    heap.push_back(i);
+    heappos[i](heap.size() - 1);
+    if(heap.size() > 1)
+        __shiftUp3(array, heap, heappos, heap.size() - 1);
+}
+
+template<typename T>
+//堆插入元素，在头位置调用shiftDown
+void insertHeapTop3(vector<T> &array, vector<int> &heap, vector<int> &heappos, int i)
+{
+    if(heap.size() > 0)
+    {
+        heap[0] = i;
+        heappos[i] = 0;
+    }
+    else
+    {
+        heap.push_back(i);
+        heappos[i] = heap.size() - 1;
+    }
+
+    if(heap.size() > 1)
+        __shiftDown3(array, heap, heappos, 0);
 }
 
 template<typename T>
@@ -276,13 +422,31 @@ void heapify3(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 
 template<typename T>
 //取出最大元素，保持完全二叉树最后一个元素放在根调用shiftDown保持最大堆性质
-T extractMax3(vector<T> &array, vector<int> &heap, vector<int> &heappos)
+int extractMaxLast3(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 {
-    T ret = array[heap[0]];
-    heap[0] = heap[heap.size() - 1];
-    heappos[heap[0]] = 0;
+    int ret;
+    if(heap.size() == 0)
+        return -1;
+    ret = heap[0];
+    if(heap.size() > 1)
+        heap[0] = heap[heap.size() - 1];
     heap.pop_back();
-    __shiftDown3(array, heap, heappos, 0);
+    if(heap.size() > 1)
+        __shiftDown3(array, heap, heappos, 0);
+    return ret;
+}
+
+template<typename T>
+//取出最大元素，元素i放在根调用shiftDown保持最大堆性质
+int extractMaxItem3(vector<T> &array, vector<int> &heap, vector<int> &heappos, int i)
+{
+    int ret;
+    if(heap.size() == 0)
+        return -1;
+    ret = heap[0];
+    heap[0] = i;
+    if(heap.size() > 1)
+        __shiftDown3(array, heap, heappos, 0);
     return ret;
 }
 
@@ -331,7 +495,7 @@ bool __shiftUp4(vector<T> &array, vector<int> &heap, vector<int> &heappos, int k
 }
 
 template<typename T>
-void __shiftDown4(vector<T> &array, vector<int> &heap, vector<int> &heappos, int k)
+bool __shiftDown4(vector<T> &array, vector<int> &heap, vector<int> &heappos, int k)
 {
     int c = k * 2 + 1;
     int kv = heap[k];
@@ -362,11 +526,43 @@ void __shiftDown4(vector<T> &array, vector<int> &heap, vector<int> &heappos, int
 }
 
 template<typename T>
+//堆最后元素放在头部位置调用shiftDown
+void lastTop4(vector<T> &array, vector<int> &heap, vector<int> &heappos)
+{
+    if(heap.size() > 1)
+        heap[0] = heap[heap.size() - 1];
+    heap.pop_back();
+    if(heap.size() > 1)
+        __shiftDown4(array, heap, heappos, 0);
+}
+
+template<typename T>
 //堆插入元素，在最后位置调用shiftUp
-void insertHeap4(vector<T> &array, vector<int> &heap, vector<int> &heappos, T i)
+void insertHeapLast4(vector<T> &array, vector<int> &heap, vector<int> &heappos, int i)
 {
     heap.push_back(i);
-    __shiftUp4(array, heap, heappos, heap.size() - 1);
+    heappos[i] = heap.size() - 1;
+    if(heap.size() > 1)
+        __shiftUp4(array, heap, heappos, heap.size() - 1);
+}
+
+template<typename T>
+//堆插入元素，在头位置调用shiftDown
+void insertHeapTop4(vector<T> &array, vector<int> &heap, vector<int> &heappos, int i)
+{
+    if(heap.size() > 0)
+    {
+        heap[0] = i;
+        heappos[i] = 0;
+    }
+    else
+    {
+        heap.push_back(i);
+        heappos[i] = heap.size() - 1;
+    }
+
+    if(heap.size() > 1)
+        __shiftDown4(array, heap, heappos, 0);
 }
 
 template<typename T>
@@ -378,14 +574,28 @@ void heapify4(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 }
 
 template<typename T>
-//取出最小元素，保持完全二叉树最后一个元素放在根调用shiftDown保持最大堆性质
-T extractMinIndex2(vector<T> &array, vector<int> &heap, vector<int> &heappos)
+//取出最小元素，保持完全二叉树最后一个元素放在根调用shiftDown保持最小堆性质
+int extractMinLast4(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 {
-    T ret = array[heap[0]];
-    heap[0] = heap[heap.size() - 1];
-    heappos[heap[0]] = 0;
-    heap.pop_back();
-    __shiftDown4(array, heap, heappos, 0);
+    int ret;
+    if(heap.size() == 0)
+        return -1;
+    ret = heap[0];
+    lastTop4(array, heap, heappos);
+    return ret;
+}
+
+template<typename T>
+//取出最小元素，元素i放在根调用shiftDown保持最小堆性质
+int extractMinItem4(vector<T> &array, vector<int> &heap, vector<int> &heappos, int i)
+{
+    int ret;
+    if(heap.size() == 0)
+        return -1;
+    ret = heap[0];
+    heap[0] = i;
+    if(heap.size() > 1)
+        __shiftDown4(array, heap, heappos, 0);
     return ret;
 }
 

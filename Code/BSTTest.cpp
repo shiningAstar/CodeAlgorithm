@@ -14,7 +14,7 @@ using namespace std;
 //            5
 //        3       7
 //     2    4   6  8
-//    1              9
+//   1               9
 int main()
 {
     struct TreeNode tree[9];
