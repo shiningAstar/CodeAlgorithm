@@ -269,5 +269,123 @@ void dfsBST32(TreeNode *root)
 
 /*******************************/
 
+/*******************************/
+//递归实现查找最小值节点
+TreeNode *minBST(TreeNode *root)
+{
+    if(root == NULL)
+        return NULL;
+
+    if(root->left == NULL)
+        return root;
+
+    return minBST(root->left);
+
+}
+
+/*******************************/
+
+/*******************************/
+//递归实现查找最大值节点
+TreeNode *maxBST(TreeNode *root)
+{
+    if(root == NULL)
+        return NULL;
+
+    if(root->right == NULL)
+        return root;
+
+    return maxBST(root->right);
+
+}
+
+/*******************************/
+
+/*******************************/
+//递归实现查找node前驱节点
+TreeNode *predecessorBST(TreeNode *root, TreeNode *node)
+{
+    if(root == NULL)
+        return NULL;
+
+    if(node->left)
+        return maxBST(node->left);
+
+    //node没有左子树，前驱节点是以node为最小值最大子树根节点的父节点
+    TreeNode *pred = NULL, *p = root;
+    while(p)
+    {
+        if(node->val > p->val)
+        {
+            pred = p;
+            p = p->right;
+        }
+        else if(node->val < p->val)
+        {
+            TreeNode *minr = p;
+            while(p)
+            {
+                if(p->left == node)
+                    return pred;   //node不是根节点最小值返回找到pred，node为根最小值返回NULL
+                p = p->left;
+            }
+            p = minr;
+            pred = p;
+            p = p->left;
+        }
+        else
+            return pred;
+    }
+    //树中不存在node
+    return NULL;
+
+
+}
+
+/*******************************/
+
+/*******************************/
+//递归实现查找node后继节点
+TreeNode *successorBST(TreeNode *root, TreeNode *node)
+{
+    if(root == NULL)
+        return NULL;
+
+    if(node->right)
+        return maxBST(node->left);
+
+    //node没有右子树，后继节点是以node为最大值最大子树根节点的父节点
+    TreeNode *succ = NULL, *p = root;
+    while(p)
+    {
+        if(node->val < p->val)
+        {
+            succ = p;
+            p = p->left;
+        }
+        else if(node->val > p->val)
+        {
+            TreeNode *maxr = p;
+            while(p)
+            {
+                if(p->right == node)
+                    return succ;   //node不是根节点最大值返回找到succ，node为根最大值返回NULL
+                p = p->right;
+            }
+            p = maxr;
+            succ = p;
+            p = p->right;
+        }
+        else
+        {
+            return succ;
+        }
+    }
+    //树中不存在node
+    return NULL;
+
+}
+
+
 
 #endif // BST_H_INCLUDED

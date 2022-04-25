@@ -41,5 +41,21 @@ int main()
 
     dfsBST21(&tree[4]);
 
+    cout<<endl;
+
+    TreeNode *succ;
+
+    succ = successorBST(&tree[4], &tree[5]);
+
+    cout<<succ->val;
+
+    cout<<endl;
+
+    TreeNode *pred;
+
+    pred = predecessorBST(&tree[4], &tree[3]);
+
+    cout<<pred->val;
+
     return 0;
 }
