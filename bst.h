@@ -286,6 +286,31 @@ TreeNode *minBST(TreeNode *root)
 /*******************************/
 
 /*******************************/
+//递归实现删除最小值节点，返回删除后子树的根
+TreeNode *deleteMinBST(TreeNode *root, TreeNode &*min)
+{
+    if(root == NULL)
+        return NULL;
+
+    if(root->left)
+    {
+        root->left = deleteMinBST(root->left, min);
+        return root;
+    }
+    else  //root->left == NULL
+    {
+        TreeNode *rightnode = root->right;
+        //删除
+        //delete root;
+        //返回节点可用作替换，仅在结构中去除
+        min = root;
+        return rightnode;
+    }
+}
+
+/*******************************/
+
+/*******************************/
 //递归实现查找最大值节点
 TreeNode *maxBST(TreeNode *root)
 {
@@ -302,7 +327,80 @@ TreeNode *maxBST(TreeNode *root)
 /*******************************/
 
 /*******************************/
-//递归实现查找node前驱节点
+//递归实现删除最大值节点，返回删除后子树的根
+TreeNode *deleteMaxBST(TreeNode *root, TreeNode &*max)
+{
+    if(root == NULL)
+        return NULL;
+
+    if(root->right)
+    {
+        root->right = deleteMinBST(root->right, max);
+        return root;
+    }
+    else  //root->right == NULL
+    {
+        TreeNode *leftnode = root->left;
+        //删除
+        //delete root;
+        //返回节点可用作替换，仅在结构中去除
+        max = root;
+        return leftnode;
+    }
+}
+
+/*******************************/
+
+/*******************************/
+//递归实现删除节点，返回删除后子树的根
+TreeNode *deleteBST(TreeNode *root, int key)
+{
+    if(root == NULL)
+        return NULL;
+
+    if(key < root->val)
+    {
+        root->left = deleteBST(root->left);
+        return root;
+    }
+    else  (key > root->val)
+    {
+        root->right = deleteBST(root->right);
+        return root;
+    }
+    else   //key == root->val
+    {
+        if(root->left == NULL)  //包括  && root->right == NULL
+        {
+            int rightnode = root->right;
+            //删除，不删结构中去除不影响结构正确
+            //delete root;
+            return rightnode;
+        }
+        else if(root->right == NULL)
+        {
+            TreeNode *leftnode = root->left;
+            //删除，不删结构中去除不影响结构正确
+            //delete root;
+            return leftnode;
+        }
+        else  //root->left != NULL && root->right != NULL
+        {
+            TreeNode *min;
+            root->right = deleteMinBST(root->right, min);  //最小值节点用在替换删除节点
+            min->left = root->left;
+            min->right = root->right;
+            //删除，不删结构中去除不影响结构正确
+            //delete root;
+            return min;
+        }
+    }
+}
+
+/*******************************/
+
+/*******************************/
+//递推实现查找node前驱节点
 TreeNode *predecessorBST(TreeNode *root, TreeNode *node)
 {
     if(root == NULL)
@@ -345,7 +443,7 @@ TreeNode *predecessorBST(TreeNode *root, TreeNode *node)
 /*******************************/
 
 /*******************************/
-//递归实现查找node后继节点
+//递推实现查找node后继节点
 TreeNode *successorBST(TreeNode *root, TreeNode *node)
 {
     if(root == NULL)

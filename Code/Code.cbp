@@ -32,8 +32,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="../binarysearch.h" />
+		<Unit filename="../bst.h" />
 		<Unit filename="../heap.h" />
-		<Unit filename="../merge.h" />
+		<Unit filename="../mergesort.h" />
 		<Unit filename="../quicksort.h" />
 		<Unit filename="TestHelper.h" />
 		<Unit filename="main.cpp" />
