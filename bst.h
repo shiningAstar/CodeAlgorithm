@@ -269,6 +269,34 @@ void dfsBST32(TreeNode *root)
 
 /*******************************/
 
+
+/*******************************/
+//递推实现广度优先遍历
+void bfsBST(TreeNode *root)
+{
+    if(root == NULL)
+        return;
+    queue<TreeNode *> que;
+
+    que.push(root);
+
+    while(!que.empty())
+    {
+        TreeNode *node = que.top();
+        que.pop();
+        //遍历node
+        //cout<<node->val;
+        if(node->left)
+            que.push(node->left);
+        if(node->right)
+            que.push(node->right);
+    }
+
+}
+
+/*******************************/
+
+
 /*******************************/
 //递归实现查找最小值节点
 TreeNode *minBST(TreeNode *root)
