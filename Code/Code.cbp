@@ -34,9 +34,12 @@
 		</Compiler>
 		<Unit filename="../binarysearch.h" />
 		<Unit filename="../bst.h" />
+		<Unit filename="../graph.h" />
 		<Unit filename="../heap.h" />
+		<Unit filename="../linepoint.h" />
 		<Unit filename="../mergesort.h" />
 		<Unit filename="../quicksort.h" />
+		<Unit filename="../scopetree.h" />
 		<Unit filename="TestHelper.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>

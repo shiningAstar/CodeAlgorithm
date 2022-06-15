@@ -24,6 +24,7 @@ void pathGraph(int v, int w, vector<int> &from, vector<int> &path)
             path.push_back(pathStack.top());
             pathStack.pop();
         }
+        path.push_back(w);
     }
 
 }
@@ -126,7 +127,7 @@ void __bfs(vector<vector<int>> &adj, vector<bool> &visited, vector<int> &from, v
 void bfsGraph(vector<vector<int>> &adj)
 {
     vector<bool> visited(adj.size(), false);
-    vector<int> from(adj.szie(), -1);
+    vector<int> from(adj.size(), -1);
     int ccount = 0;
     vector<int> id(adj.size() - 1, -1);
 

@@ -19,7 +19,7 @@ int binarySearch(vector<T> array, T target)
     int mid;
 
     /* 在[l,r]范围内查找target */
-    if(l <= r)
+    while(l <= r)
     {
         mid = l + (r - l) / 2;
         if(equalBinary(array[mid], target))
