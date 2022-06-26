@@ -35,6 +35,7 @@
 		<Unit filename="../binarysearch.h" />
 		<Unit filename="../bst.h" />
 		<Unit filename="../graph.h" />
+		<Unit filename="../heap(mode).h" />
 		<Unit filename="../heap.h" />
 		<Unit filename="../linepoint.h" />
 		<Unit filename="../mergesort.h" />

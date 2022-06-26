@@ -5,6 +5,7 @@
 		<Project filename="Code/SortTest.cbp" />
 		<Project filename="Code/HeapTest.cbp" />
 		<Project filename="Code/BSTTest.cbp" />
-		<Project filename="Code/IteratorTest.cbp" />
+		<Project filename="../LeetCodeProblem/37.solveSudoku/37.solveSudoku.cbp" />
+		<Project filename="../LeetCodeProblem/49.groupAnagrams/49.groupAnagrams.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
