@@ -1,7 +1,7 @@
 #ifndef QUICKSORT_H_INCLUDED
 #define QUICKSORT_H_INCLUDED
 
-/* ¿ìËÙÅÅĞò */
+/* å¿«é€Ÿæ’åº */
 
 #define lessQuickSort(t1, t2) (t1 < t2)
 #define lessEqualQuickSort(t1, t2) (t1 <= t2)
@@ -18,14 +18,14 @@ int compareQuickSort(T t1, T t2)
         return t1 > t2;
 }*/
 
-//µİ¹éÊµÏÖÒ»Â·¿ìËÙÅÅĞò
+//é€’å½’å®ç°ä¸€è·¯å¿«é€Ÿæ’åº
 /***********************************************/
 
-//°´±ê¶¨µã×óÓÒ·Ö½ç£¬½üºõÓĞĞòÊı×éËæ»ú±ê¶¨µã±ÜÃâ·Ö½ç²»Æ½ºâ
+//æŒ‰æ ‡å®šç‚¹å·¦å³åˆ†ç•Œï¼Œè¿‘ä¹æœ‰åºæ•°ç»„éšæœºæ ‡å®šç‚¹é¿å…åˆ†ç•Œä¸å¹³è¡¡
 template<typename T>
 int __partition1(vector<T> &nums, int l, int r)
 {
-    //Ëæ»úÑ¡±ê¶¨µã
+    //éšæœºé€‰æ ‡å®šç‚¹
     //swap(nums[l], nums[l + rand() % (r - l)]);
     T v = nums[l];
     int i, j;
@@ -45,7 +45,7 @@ int __partition1(vector<T> &nums, int l, int r)
 
 }
 
-//¶Ô·¶Î§[l,r]µÄÊı×é¿ìËÙÅÅĞò
+//å¯¹èŒƒå›´[l,r]çš„æ•°ç»„å¿«é€Ÿæ’åº
 template<typename T>
 void __quickSort1(vector<T> &nums, int l, int r)
 {
@@ -61,7 +61,7 @@ void __quickSort1(vector<T> &nums, int l, int r)
 template<typename T>
 void quickSort1(vector<T> &nums)
 {
-    //Ëæ»ú±ê¶¨µã
+    //éšæœºæ ‡å®šç‚¹
     //srand(time(NULL));
     __quickSort1(nums, 0, nums.size() - 1);
 }
@@ -70,13 +70,13 @@ void quickSort1(vector<T> &nums)
 
 
 
-//µİ¹éÊµÏÖÁ½Â·¿ìËÙÅÅĞò£¬ÖØ¸´ÔªËØ·ÖÉ¢µ½Á½±ß£¬¾¡¿ÉÄÜÆ½ºâ
+//é€’å½’å®ç°ä¸¤è·¯å¿«é€Ÿæ’åºï¼Œé‡å¤å…ƒç´ åˆ†æ•£åˆ°ä¸¤è¾¹ï¼Œå°½å¯èƒ½å¹³è¡¡
 /***********************************************/
 
 template<typename T>
 int __partition2(vector<T> &nums, int l, int r)
 {
-    //Ëæ»úÑ¡±ê¶¨µã
+    //éšæœºé€‰æ ‡å®šç‚¹
     //swap(nums[l], nums[l + rand() % (r - l)]);
     T v = nums[l];
     int i = l + 1, j = r;
@@ -120,7 +120,7 @@ void quickSort2(vector<T> &nums)
 
 
 
-//µİ¹éÊµÏÖÈıÂ·¿ìËÙÅÅĞò£¬±ê¶¨µã´óĞ¡·ÖÁ½±ß£¬±ê¶¨µãÖØ¸´ÔªËØÖĞ¼ä£¬Ö»´¦Àí×óÓÒÁ½±ß
+//é€’å½’å®ç°ä¸‰è·¯å¿«é€Ÿæ’åºï¼Œæ ‡å®šç‚¹å¤§å°åˆ†ä¸¤è¾¹ï¼Œæ ‡å®šç‚¹é‡å¤å…ƒç´ ä¸­é—´ï¼Œåªå¤„ç†å·¦å³ä¸¤è¾¹
 /***********************************************/
 
 template<typename T>
@@ -130,7 +130,7 @@ void __quickSort3(vector<T> &nums, int l, int r)
         return;
 
     //partition
-    //Ëæ»úÑ¡±ê¶¨µã
+    //éšæœºé€‰æ ‡å®šç‚¹
     //swap(nums[l], nums[l + rand() % (r - l)]);
     T v = nums[l];
     int lt = l, gt = r + 1;

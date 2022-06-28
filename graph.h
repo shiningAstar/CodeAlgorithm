@@ -1,9 +1,9 @@
 #ifndef GRAPH_H_INCLUDED
 #define GRAPH_H_INCLUDED
 
-/* Í¼ */
+/* å›¾ */
 
-//·µ»ØvºÍwÖ®¼äµÄÂ·¾¶path
+//è¿”å›vå’Œwä¹‹é—´çš„è·¯å¾„path
 void pathGraph(int v, int w, vector<int> &from, vector<int> &path)
 {
     stack<int> pathStack;
@@ -29,18 +29,18 @@ void pathGraph(int v, int w, vector<int> &from, vector<int> &path)
 
 }
 
-//vºÍwÊÇ·ñÁ¬Í¨
+//vå’Œwæ˜¯å¦è¿é€š
 bool isConnected(int v, int w, vector<int> &id)
 {
     return id[v] == id[w];
 }
 
 /*******************************/
-//µİ¹éÊµÏÖÍ¼ÁÚ½Ó±íÉî¶ÈÓÅÏÈ±éÀú£¬visited¼ÇÂ¼½ÚµãÊÇ·ñ±éÀú£¬from¼ÇÂ¼½Úµã¼äÂ·¾¶£¬ccountÁªÍ¨·ÖÁ¿£¬id²éÑ¯ÊÇ·ñÁ¬Í¨
+//é€’å½’å®ç°å›¾é‚»æ¥è¡¨æ·±åº¦ä¼˜å…ˆéå†ï¼Œvisitedè®°å½•èŠ‚ç‚¹æ˜¯å¦éå†ï¼Œfromè®°å½•èŠ‚ç‚¹é—´è·¯å¾„ï¼Œccountè”é€šåˆ†é‡ï¼ŒidæŸ¥è¯¢æ˜¯å¦è¿é€š
 
 void __dfs(vector<vector<int>> &adj, vector<bool> &visited, vector<int> &from, vector<int> &id, int ccount, int v)
 {
-    //±éÀúv
+    //éå†v
     //cout<<nodes[v].val;
     visited[v] = true;
     id[v] = ccount;
@@ -65,7 +65,7 @@ void dfsGraph(vector<vector<int>> &adj)
     int ccount = 0;
     vector<int> id(adj.size() - 1, -1);
 
-    //Á¬Í¨Í¼Ö»±éÀúÒ»±é£¬²»ÓÃ¼ÇÂ¼ccountºÍid
+    //è¿é€šå›¾åªéå†ä¸€éï¼Œä¸ç”¨è®°å½•ccountå’Œid
     //if(!visited[i])
         //__dfs(adj, visited, from, i);
 
@@ -79,7 +79,7 @@ void dfsGraph(vector<vector<int>> &adj)
         }
     }
 
-    //±éÀúºó¿É²éÑ¯ÊÇ·ñÁ¬Í¨ºÍÂ·¾¶
+    //éå†åå¯æŸ¥è¯¢æ˜¯å¦è¿é€šå’Œè·¯å¾„
     //if(isConnected(v, w))
     //vector<int> path;
     //pathGraph(v, w, from, path);
@@ -92,7 +92,7 @@ void dfsGraph(vector<vector<int>> &adj)
 
 
 /*******************************/
-//µİÍÆÊµÏÖÍ¼ÁÚ½Ó±í¹ã¶ÈÓÅÏÈ±éÀú£¬visited¼ÇÂ¼½ÚµãÊÇ·ñ±éÀú£¬from¼ÇÂ¼½Úµã¼äÂ·¾¶£¬ccountÁªÍ¨·ÖÁ¿£¬id²éÑ¯ÊÇ·ñÁ¬Í¨
+//é€’æ¨å®ç°å›¾é‚»æ¥è¡¨å¹¿åº¦ä¼˜å…ˆéå†ï¼Œvisitedè®°å½•èŠ‚ç‚¹æ˜¯å¦éå†ï¼Œfromè®°å½•èŠ‚ç‚¹é—´è·¯å¾„ï¼Œccountè”é€šåˆ†é‡ï¼ŒidæŸ¥è¯¢æ˜¯å¦è¿é€š
 
 
 void __bfs(vector<vector<int>> &adj, vector<bool> &visited, vector<int> &from, vector<int> &id, int ccount, int v)
@@ -107,7 +107,7 @@ void __bfs(vector<vector<int>> &adj, vector<bool> &visited, vector<int> &from, v
     {
         int p = que.front();
         que.pop();
-        //±éÀúw
+        //éå†w
         //cout<<w;
         for(int i = 0; i < adj[p].size(); i++)
         {
@@ -134,7 +134,7 @@ void bfsGraph(vector<vector<int>> &adj)
 
 
 
-    //Á¬Í¨Í¼Ö»±éÀúÒ»±é£¬²»ÓÃ¼ÇÂ¼ccountºÍid
+    //è¿é€šå›¾åªéå†ä¸€éï¼Œä¸ç”¨è®°å½•ccountå’Œid
     //if(!visited[i])
         //__bfs(adj, visited, from, id, ccount, i);
 
@@ -148,7 +148,7 @@ void bfsGraph(vector<vector<int>> &adj)
         }
     }
 
-    //±éÀúºó¿É²éÑ¯ÊÇ·ñÁ¬Í¨ºÍÂ·¾¶£¬¹ã¶ÈÓÅÏÈ±éÀúµÄÂ·¾¶ÊÇ×î¶ÌÂ·¾¶
+    //éå†åå¯æŸ¥è¯¢æ˜¯å¦è¿é€šå’Œè·¯å¾„ï¼Œå¹¿åº¦ä¼˜å…ˆéå†çš„è·¯å¾„æ˜¯æœ€çŸ­è·¯å¾„
     //if(isConnected(v, w))
     //vector<int> path;
     //pathGraph(v, w, from, path);
@@ -159,14 +159,14 @@ void bfsGraph(vector<vector<int>> &adj)
 /*******************************/
 
 /*******************************/
-//µİ¹éÊµÏÖÓĞÏòÍ¼ÁÚ½Ó±íÉî¶ÈÓÅÏÈ±éÀú£¬ÅĞ¶ÏÊÇ·ñÓĞ»·
+//é€’å½’å®ç°æœ‰å‘å›¾é‚»æ¥è¡¨æ·±åº¦ä¼˜å…ˆéå†ï¼Œåˆ¤æ–­æ˜¯å¦æœ‰ç¯
 
-//visited¼ÇÂ¼½ÚµãÊÇ·ñ±éÀú£¬ÈıÖÖ×´Ì¬£ºÎ´±éÀú¡¢ÔÚ±éÀúÖĞ£¨ÁÚ½Ó½ÚµãÎ´±éÀúÍê£©¡¢½áÊø±éÀú£¨ÁÚ½Ó½ÚµãÈ«²¿±éÀú£©{-1£¬0£¬1}
-//±éÀúÖĞµÄ½Úµã±»ÔÙ´Î±éÀúµ½£¬Ôò´æÔÚ»·
-/* ½áÊøµÄ½ÚµãºóÃæ½ÚµãÈ«²¿±éÀúÍê²»¿ÉÄÜÊÇµ±Ç°±éÀúÖĞÂ·¾¶µÄÇ°Ãæ½Úµã£¬±éÀúÖĞ½ÚµãÒ»¶¨ÔÚµ±Ç°±éÀúÖĞÂ·¾¶Ç°ÃæµÄÄ³Î»ÖÃ */
+//visitedè®°å½•èŠ‚ç‚¹æ˜¯å¦éå†ï¼Œä¸‰ç§çŠ¶æ€ï¼šæœªéå†ã€åœ¨éå†ä¸­ï¼ˆé‚»æ¥èŠ‚ç‚¹æœªéå†å®Œï¼‰ã€ç»“æŸéå†ï¼ˆé‚»æ¥èŠ‚ç‚¹å…¨éƒ¨éå†ï¼‰{-1ï¼Œ0ï¼Œ1}
+//éå†ä¸­çš„èŠ‚ç‚¹è¢«å†æ¬¡éå†åˆ°ï¼Œåˆ™å­˜åœ¨ç¯
+/* ç»“æŸçš„èŠ‚ç‚¹åé¢èŠ‚ç‚¹å…¨éƒ¨éå†å®Œä¸å¯èƒ½æ˜¯å½“å‰éå†ä¸­è·¯å¾„çš„å‰é¢èŠ‚ç‚¹ï¼Œéå†ä¸­èŠ‚ç‚¹ä¸€å®šåœ¨å½“å‰éå†ä¸­è·¯å¾„å‰é¢çš„æŸä½ç½® */
 bool __dfs(vector<vector<int>> &adj, vector<int> &visited, int v)
 {
-    //±éÀúv
+    //éå†v
     //cout<<nodes[v].val;
     visited[v] = 0;
 
@@ -188,7 +188,7 @@ bool dfsGraph(vector<vector<int>> &adj)
 {
     vector<int> visited(adj.size(), -1);
 
-    //Á¬Í¨Í¼Ö»±éÀúÒ»±é£¬²»ÓÃ¼ÇÂ¼ccountºÍid
+    //è¿é€šå›¾åªéå†ä¸€éï¼Œä¸ç”¨è®°å½•ccountå’Œid
     //return __dfs(adj, visited, 0);
 
 

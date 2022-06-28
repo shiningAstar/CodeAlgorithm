@@ -1,7 +1,7 @@
 #ifndef HEAP_H_INCLUDED
 #define HEAP_H_INCLUDED
 
-/* ¶Ñ£¨ÓÅÏÈ¶ÓÁĞ£© */
+/* å †ï¼ˆä¼˜å…ˆé˜Ÿåˆ—ï¼‰ */
 
 #define lessHeap(t1, t2) (t1 < t2)
 #define lessEqualHeap(t1, t2) (t1 <= t2)
@@ -9,9 +9,9 @@
 #define greaterEqualHeap(t1, t2) (t1 >= t2)
 #define equalHeap(t1, t2) (t1 == t2)
 
-//ÊµÏÖ×î´ó¶Ñ
+//å®ç°æœ€å¤§å †
 /*********************************/
-/* ¶ÑÓÃÊı×é´æ´¢£¬¸ù½ÚµãÔÚÏÂ±ê0¿ªÊ¼ */
+/* å †ç”¨æ•°ç»„å­˜å‚¨ï¼Œæ ¹èŠ‚ç‚¹åœ¨ä¸‹æ ‡0å¼€å§‹ */
 
 template<typename T>
 bool __shiftUp1(vector<T> &heap, int k)
@@ -62,7 +62,7 @@ bool __shiftDown1(vector<T> &heap, int k)
 }
 
 template<typename T>
-//¶Ñ×îºóÔªËØ·ÅÔÚÍ·²¿Î»ÖÃµ÷ÓÃshiftDown
+//å †æœ€åå…ƒç´ æ”¾åœ¨å¤´éƒ¨ä½ç½®è°ƒç”¨shiftDown
 void lastTop1(vector<T> &heap)
 {
     if(heap.size() > 1)
@@ -73,7 +73,7 @@ void lastTop1(vector<T> &heap)
 }
 
 template<typename T>
-//¶Ñ²åÈëÔªËØ£¬ÔÚ×îºóÎ»ÖÃµ÷ÓÃshiftUp
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨æœ€åä½ç½®è°ƒç”¨shiftUp
 void insertHeapLast1(vector<T> &heap, T i)
 {
     heap.push_back(i);
@@ -82,7 +82,7 @@ void insertHeapLast1(vector<T> &heap, T i)
 }
 
 template<typename T>
-//¶Ñ²åÈëÔªËØ£¬ÔÚÍ·Î»ÖÃµ÷ÓÃshiftDown
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨å¤´ä½ç½®è°ƒç”¨shiftDown
 void insertHeapTop1(vector<T> &heap, T i)
 {
     if(heap.size() > 0)
@@ -94,7 +94,7 @@ void insertHeapTop1(vector<T> &heap, T i)
 }
 
 template<typename T>
-//½¨Á¢¶Ñ£¬ÔÚµÚÒ»¸ö·ÇÒ¶×Ó½áµã¿ªÊ¼ÒÀ´Îµ÷ÓÃshiftDown
+//å»ºç«‹å †ï¼Œåœ¨ç¬¬ä¸€ä¸ªéå¶å­ç»“ç‚¹å¼€å§‹ä¾æ¬¡è°ƒç”¨shiftDown
 void heapify1(vector <T> &heap)
 {
     for(int i = (heap.size() - 1 - 1) / 2; i >= 0; i--)
@@ -102,7 +102,7 @@ void heapify1(vector <T> &heap)
 }
 
 template<typename T>
-//È¡³ö×î´óÔªËØ£¬±£³ÖÍêÈ«¶ş²æÊ÷×îºóÒ»¸öÔªËØ·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×î´ó¶ÑĞÔÖÊ
+//å–å‡ºæœ€å¤§å…ƒç´ ï¼Œä¿æŒå®Œå…¨äºŒå‰æ ‘æœ€åä¸€ä¸ªå…ƒç´ æ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å¤§å †æ€§è´¨
 bool extractMaxLast1(vector <T> &heap, T &max)
 {
     if(heap.size() == 0)
@@ -117,7 +117,7 @@ bool extractMaxLast1(vector <T> &heap, T &max)
 }
 
 template<typename T>
-//È¡³ö×î´óÔªËØ£¬ÔªËØi·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×î´ó¶ÑĞÔÖÊ
+//å–å‡ºæœ€å¤§å…ƒç´ ï¼Œå…ƒç´ iæ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å¤§å †æ€§è´¨
 bool extractMaxItem1(vector <T> &heap, T &max, T i)
 {
     if(heap.size() == 0)
@@ -130,7 +130,7 @@ bool extractMaxItem1(vector <T> &heap, T &max, T i)
 }
 
 template<typename T>
-//¶ÑÅÅĞò£¬ÀûÓÃ¶Ñ¶¥µã×î´óĞÔÖÊ£¬ÒÀ´ÎÈ¡³ö¶¥µãÓë×îºóÔªËØ½»»»µ÷ÓÃshiftDown£¬ÔÚÔ­¿Õ¼äÊµÏÖÅÅĞò
+//å †æ’åºï¼Œåˆ©ç”¨å †é¡¶ç‚¹æœ€å¤§æ€§è´¨ï¼Œä¾æ¬¡å–å‡ºé¡¶ç‚¹ä¸æœ€åå…ƒç´ äº¤æ¢è°ƒç”¨shiftDownï¼Œåœ¨åŸç©ºé—´å®ç°æ’åº
 void heapSort1(vector <T> &heap)
 {
     heapify1(heap);
@@ -145,9 +145,9 @@ void heapSort1(vector <T> &heap)
 /*********************************/
 
 
-//ÊµÏÖ×îĞ¡¶Ñ
+//å®ç°æœ€å°å †
 /*********************************/
-/* ¶ÑÓÃÊı×é´æ´¢£¬¸ù½ÚµãÔÚÏÂ±ê0¿ªÊ¼ */
+/* å †ç”¨æ•°ç»„å­˜å‚¨ï¼Œæ ¹èŠ‚ç‚¹åœ¨ä¸‹æ ‡0å¼€å§‹ */
 
 template<typename T>
 bool __shiftUp2(vector<T> &heap, int k)
@@ -198,7 +198,7 @@ bool __shiftDown2(vector<T> &heap, int k)
 }
 
 template<typename T>
-//¶Ñ×îºóÔªËØ·ÅÔÚÍ·²¿Î»ÖÃµ÷ÓÃshiftDown
+//å †æœ€åå…ƒç´ æ”¾åœ¨å¤´éƒ¨ä½ç½®è°ƒç”¨shiftDown
 void lastTop2(vector<T> &heap)
 {
     if(heap.size() > 1)
@@ -209,7 +209,7 @@ void lastTop2(vector<T> &heap)
 }
 
 template<typename T>
-//¶Ñ²åÈëÔªËØ£¬ÔÚ×îºóÎ»ÖÃµ÷ÓÃshiftUp
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨æœ€åä½ç½®è°ƒç”¨shiftUp
 void insertHeapLast2(vector<T> &heap, T i)
 {
     heap.push_back(i);
@@ -218,7 +218,7 @@ void insertHeapLast2(vector<T> &heap, T i)
 }
 
 template<typename T>
-//¶Ñ²åÈëÔªËØ£¬ÔÚÍ·Î»ÖÃµ÷ÓÃshiftDown
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨å¤´ä½ç½®è°ƒç”¨shiftDown
 void insertHeapTop2(vector<T> &heap, T i)
 {
     if(heap.size() > 0)
@@ -230,7 +230,7 @@ void insertHeapTop2(vector<T> &heap, T i)
 }
 
 template<typename T>
-//½¨Á¢¶Ñ£¬ÔÚµÚÒ»¸ö·ÇÒ¶×Ó½áµã¿ªÊ¼ÒÀ´Îµ÷ÓÃshiftDown
+//å»ºç«‹å †ï¼Œåœ¨ç¬¬ä¸€ä¸ªéå¶å­ç»“ç‚¹å¼€å§‹ä¾æ¬¡è°ƒç”¨shiftDown
 void heapify2(vector <T> &heap)
 {
     for(int i = (heap.size() - 1 - 1) / 2; i >= 0; i--)
@@ -238,7 +238,7 @@ void heapify2(vector <T> &heap)
 }
 
 template<typename T>
-//È¡³ö×îĞ¡ÔªËØ£¬±£³ÖÍêÈ«¶ş²æÊ÷×îºóÒ»¸öÔªËØ·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×îĞ¡¶ÑĞÔÖÊ
+//å–å‡ºæœ€å°å…ƒç´ ï¼Œä¿æŒå®Œå…¨äºŒå‰æ ‘æœ€åä¸€ä¸ªå…ƒç´ æ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å°å †æ€§è´¨
 bool extractMinLast2(vector <T> &heap, T &min)
 {
     if(heap.size() == 0)
@@ -253,7 +253,7 @@ bool extractMinLast2(vector <T> &heap, T &min)
 }
 
 template<typename T>
-//È¡³ö×îĞ¡ÔªËØ£¬ÔªËØi·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×îĞ¡¶ÑĞÔÖÊ
+//å–å‡ºæœ€å°å…ƒç´ ï¼Œå…ƒç´ iæ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å°å †æ€§è´¨
 bool extractMinItem2(vector <T> &heap, T &min, T i)
 {
     if(heap.size() == 0)
@@ -266,7 +266,7 @@ bool extractMinItem2(vector <T> &heap, T &min, T i)
 }
 
 template<typename T>
-//¶ÑÅÅĞò£¬ÀûÓÃ¶Ñ¶¥µã×îĞ¡ĞÔÖÊ£¬ÒÀ´ÎÈ¡³ö¶¥µãÓë×îºóÔªËØ½»»»µ÷ÓÃshiftDown£¬ÔÚÔ­¿Õ¼äÊµÏÖÅÅĞò
+//å †æ’åºï¼Œåˆ©ç”¨å †é¡¶ç‚¹æœ€å°æ€§è´¨ï¼Œä¾æ¬¡å–å‡ºé¡¶ç‚¹ä¸æœ€åå…ƒç´ äº¤æ¢è°ƒç”¨shiftDownï¼Œåœ¨åŸç©ºé—´å®ç°æ’åº
 void heapSort2(vector <T> &heap)
 {
     heapify2(heap);
@@ -281,9 +281,9 @@ void heapSort2(vector <T> &heap)
 /*********************************/
 
 
-//ÊµÏÖË÷Òı×î´ó¶Ñ
+//å®ç°ç´¢å¼•æœ€å¤§å †
 /*********************************/
-/* ¶ÑÓÃË÷Òı±íÊ¾Êı×é´æ´¢£¬¸ù½ÚµãÔÚÏÂ±ê0¿ªÊ¼ */
+/* å †ç”¨ç´¢å¼•è¡¨ç¤ºæ•°ç»„å­˜å‚¨ï¼Œæ ¹èŠ‚ç‚¹åœ¨ä¸‹æ ‡0å¼€å§‹ */
 
 template<typename T>
 bool __shiftUp3(vector<T> &array, vector<int> &heap, vector<int> &heappos, int k)
@@ -340,9 +340,9 @@ bool __shiftDown3(vector<T> &array, vector<int> &heap, vector<int> &heappos, int
 }
 
 /*
-//T iÎªÔªËØÖµ
+//T iä¸ºå…ƒç´ å€¼
 template<typename T>
-//¶Ñ²åÈëÔªËØ£¬ÔÚ×îºóÎ»ÖÃµ÷ÓÃshiftUp
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨æœ€åä½ç½®è°ƒç”¨shiftUp
 void insertHeapLast3(vector<T> &array, vector<int> &heap, vector<int> &heappos, T i)
 {
     array.push_back(i);
@@ -353,7 +353,7 @@ void insertHeapLast3(vector<T> &array, vector<int> &heap, vector<int> &heappos, 
 }
 
 template<typename T>
-//¶Ñ²åÈëÔªËØ£¬ÔÚÍ·Î»ÖÃµ÷ÓÃshiftDown
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨å¤´ä½ç½®è°ƒç”¨shiftDown
 void insertHeapTop3(vector<T> &array, vector<int> &heap, vector<int> &heappos, T i)
 {
     if(heap.size() > 0)
@@ -372,7 +372,7 @@ void insertHeapTop3(vector<T> &array, vector<int> &heap, vector<int> &heappos, T
 }*/
 
 template<typename T>
-//¶Ñ×îºóÔªËØ·ÅÔÚÍ·²¿Î»ÖÃµ÷ÓÃshiftDown
+//å †æœ€åå…ƒç´ æ”¾åœ¨å¤´éƒ¨ä½ç½®è°ƒç”¨shiftDown
 void lastTop3(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 {
     if(heap.size() > 1)
@@ -382,9 +382,9 @@ void lastTop3(vector<T> &array, vector<int> &heap, vector<int> &heappos)
         __shiftDown3(array, heap, heappos, 0);
 }
 
-//int iÎªÔªËØÔÚarrayÖĞË÷Òı
+//int iä¸ºå…ƒç´ åœ¨arrayä¸­ç´¢å¼•
 template<typename T>
-//¶Ñ²åÈëÔªËØ£¬ÔÚ×îºóÎ»ÖÃµ÷ÓÃshiftUp
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨æœ€åä½ç½®è°ƒç”¨shiftUp
 void insertHeapLast3(vector<T> &array, vector<int> &heap, vector<int> &heappos, int i)
 {
     heap.push_back(i);
@@ -394,7 +394,7 @@ void insertHeapLast3(vector<T> &array, vector<int> &heap, vector<int> &heappos, 
 }
 
 template<typename T>
-//¶Ñ²åÈëÔªËØ£¬ÔÚÍ·Î»ÖÃµ÷ÓÃshiftDown
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨å¤´ä½ç½®è°ƒç”¨shiftDown
 void insertHeapTop3(vector<T> &array, vector<int> &heap, vector<int> &heappos, int i)
 {
     if(heap.size() > 0)
@@ -413,7 +413,7 @@ void insertHeapTop3(vector<T> &array, vector<int> &heap, vector<int> &heappos, i
 }
 
 template<typename T>
-//½¨Á¢¶Ñ£¬ÔÚµÚÒ»¸ö·ÇÒ¶×Ó½áµã¿ªÊ¼ÒÀ´Îµ÷ÓÃshiftDown
+//å»ºç«‹å †ï¼Œåœ¨ç¬¬ä¸€ä¸ªéå¶å­ç»“ç‚¹å¼€å§‹ä¾æ¬¡è°ƒç”¨shiftDown
 void heapify3(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 {
     for(int i = (heap.size() - 1 - 1) / 2; i >= 0; i--)
@@ -421,7 +421,7 @@ void heapify3(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 }
 
 template<typename T>
-//È¡³ö×î´óÔªËØ£¬±£³ÖÍêÈ«¶ş²æÊ÷×îºóÒ»¸öÔªËØ·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×î´ó¶ÑĞÔÖÊ
+//å–å‡ºæœ€å¤§å…ƒç´ ï¼Œä¿æŒå®Œå…¨äºŒå‰æ ‘æœ€åä¸€ä¸ªå…ƒç´ æ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å¤§å †æ€§è´¨
 int extractMaxLast3(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 {
     int ret;
@@ -437,7 +437,7 @@ int extractMaxLast3(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 }
 
 template<typename T>
-//È¡³ö×î´óÔªËØ£¬ÔªËØi·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×î´ó¶ÑĞÔÖÊ
+//å–å‡ºæœ€å¤§å…ƒç´ ï¼Œå…ƒç´ iæ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å¤§å †æ€§è´¨
 int extractMaxItem3(vector<T> &array, vector<int> &heap, vector<int> &heappos, int i)
 {
     int ret;
@@ -451,7 +451,7 @@ int extractMaxItem3(vector<T> &array, vector<int> &heap, vector<int> &heappos, i
 }
 
 template<typename T>
-//¶ÑÅÅĞò£¬ÀûÓÃ¶Ñ¶¥µã×î´óĞÔÖÊ£¬ÒÀ´ÎÈ¡³ö¶¥µãÓë×îºóÔªËØ½»»»µ÷ÓÃshiftDown£¬ÔÚÔ­¿Õ¼äÊµÏÖÅÅĞò
+//å †æ’åºï¼Œåˆ©ç”¨å †é¡¶ç‚¹æœ€å¤§æ€§è´¨ï¼Œä¾æ¬¡å–å‡ºé¡¶ç‚¹ä¸æœ€åå…ƒç´ äº¤æ¢è°ƒç”¨shiftDownï¼Œåœ¨åŸç©ºé—´å®ç°æ’åº
 void heapSort3(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 {
     heapify3(array, heap, heappos);
@@ -467,9 +467,9 @@ void heapSort3(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 /*********************************/
 
 
-//ÊµÏÖË÷Òı×îĞ¡¶Ñ
+//å®ç°ç´¢å¼•æœ€å°å †
 /*********************************/
-/* ¶ÑÓÃÊı×é´æ´¢£¬¸ù½ÚµãÔÚÏÂ±ê0¿ªÊ¼ */
+/* å †ç”¨æ•°ç»„å­˜å‚¨ï¼Œæ ¹èŠ‚ç‚¹åœ¨ä¸‹æ ‡0å¼€å§‹ */
 
 template<typename T>
 bool __shiftUp4(vector<T> &array, vector<int> &heap, vector<int> &heappos, int k)
@@ -526,7 +526,7 @@ bool __shiftDown4(vector<T> &array, vector<int> &heap, vector<int> &heappos, int
 }
 
 template<typename T>
-//¶Ñ×îºóÔªËØ·ÅÔÚÍ·²¿Î»ÖÃµ÷ÓÃshiftDown
+//å †æœ€åå…ƒç´ æ”¾åœ¨å¤´éƒ¨ä½ç½®è°ƒç”¨shiftDown
 void lastTop4(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 {
     if(heap.size() > 1)
@@ -537,7 +537,7 @@ void lastTop4(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 }
 
 template<typename T>
-//¶Ñ²åÈëÔªËØ£¬ÔÚ×îºóÎ»ÖÃµ÷ÓÃshiftUp
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨æœ€åä½ç½®è°ƒç”¨shiftUp
 void insertHeapLast4(vector<T> &array, vector<int> &heap, vector<int> &heappos, int i)
 {
     heap.push_back(i);
@@ -547,7 +547,7 @@ void insertHeapLast4(vector<T> &array, vector<int> &heap, vector<int> &heappos, 
 }
 
 template<typename T>
-//¶Ñ²åÈëÔªËØ£¬ÔÚÍ·Î»ÖÃµ÷ÓÃshiftDown
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨å¤´ä½ç½®è°ƒç”¨shiftDown
 void insertHeapTop4(vector<T> &array, vector<int> &heap, vector<int> &heappos, int i)
 {
     if(heap.size() > 0)
@@ -566,7 +566,7 @@ void insertHeapTop4(vector<T> &array, vector<int> &heap, vector<int> &heappos, i
 }
 
 template<typename T>
-//½¨Á¢¶Ñ£¬ÔÚµÚÒ»¸ö·ÇÒ¶×Ó½áµã¿ªÊ¼ÒÀ´Îµ÷ÓÃshiftDown
+//å»ºç«‹å †ï¼Œåœ¨ç¬¬ä¸€ä¸ªéå¶å­ç»“ç‚¹å¼€å§‹ä¾æ¬¡è°ƒç”¨shiftDown
 void heapify4(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 {
     for(int i = (heap.size() - 1 - 1) / 2; i >= 0; i--)
@@ -574,7 +574,7 @@ void heapify4(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 }
 
 template<typename T>
-//È¡³ö×îĞ¡ÔªËØ£¬±£³ÖÍêÈ«¶ş²æÊ÷×îºóÒ»¸öÔªËØ·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×îĞ¡¶ÑĞÔÖÊ
+//å–å‡ºæœ€å°å…ƒç´ ï¼Œä¿æŒå®Œå…¨äºŒå‰æ ‘æœ€åä¸€ä¸ªå…ƒç´ æ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å°å †æ€§è´¨
 int extractMinLast4(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 {
     int ret;
@@ -586,7 +586,7 @@ int extractMinLast4(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 }
 
 template<typename T>
-//È¡³ö×îĞ¡ÔªËØ£¬ÔªËØi·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×îĞ¡¶ÑĞÔÖÊ
+//å–å‡ºæœ€å°å…ƒç´ ï¼Œå…ƒç´ iæ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å°å †æ€§è´¨
 int extractMinItem4(vector<T> &array, vector<int> &heap, vector<int> &heappos, int i)
 {
     int ret;
@@ -600,7 +600,7 @@ int extractMinItem4(vector<T> &array, vector<int> &heap, vector<int> &heappos, i
 }
 
 template<typename T>
-//¶ÑÅÅĞò£¬ÀûÓÃ¶Ñ¶¥µã×îĞ¡ĞÔÖÊ£¬ÒÀ´ÎÈ¡³ö¶¥µãÓë×îºóÔªËØ½»»»µ÷ÓÃshiftDown£¬ÔÚÔ­¿Õ¼äÊµÏÖÅÅĞò
+//å †æ’åºï¼Œåˆ©ç”¨å †é¡¶ç‚¹æœ€å°æ€§è´¨ï¼Œä¾æ¬¡å–å‡ºé¡¶ç‚¹ä¸æœ€åå…ƒç´ äº¤æ¢è°ƒç”¨shiftDownï¼Œåœ¨åŸç©ºé—´å®ç°æ’åº
 void heapSort4(vector<T> &array, vector<int> &heap, vector<int> &heappos)
 {
     heapify4(array, heap, heappos);

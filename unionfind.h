@@ -14,14 +14,14 @@ void init(int n){
 int find(int x){
     int k, j, r;
     r = x;
-    while(r != parent[r]) r = parent[r];   //²éÕÒ¸ú½Úµã //ÕÒµ½¸ú½Úµã,ÓÃr¼ÇÂ¼ÏÂ
+    while(r != fa[r]) r = fa[r];   //æŸ¥æ‰¾è·ŸèŠ‚ç‚¹ //æ‰¾åˆ°è·ŸèŠ‚ç‚¹,ç”¨rè®°å½•ä¸‹
     k = x;
-    while(k != r){   //·Çµİ¹éÂ·¾¶Ñ¹Ëõ²Ù×÷
-        j = parent[k]; //ÓÃjÔİ´æparent[k]µÄ¸¸½Úµã
-        parent[k] = r; //parent[x]Ö¸Ïò¸ú½Úµã
-        k = j;  //kÒÆµ½¸¸½Úµã
+    while(k != r){   //éé€’å½’è·¯å¾„å‹ç¼©æ“ä½œ
+        j = fa[k]; //ç”¨jæš‚å­˜parent[k]çš„çˆ¶èŠ‚ç‚¹
+        fa[k] = r; //parent[x]æŒ‡å‘è·ŸèŠ‚ç‚¹
+        k = j;  //kç§»åˆ°çˆ¶èŠ‚ç‚¹
     }
-    return r;   //·µ»Ø¸ù½ÚµãµÄÖµ
+    return r;   //è¿”å›æ ¹èŠ‚ç‚¹çš„å€¼
 }
 
 void merge(int i, int j){

@@ -1,11 +1,11 @@
 #ifndef HEAP_H_INCLUDED
 #define HEAP_H_INCLUDED
 
-/* ¶Ñ£¨ÓÅÏÈ¶ÓÁĞ£© */
+/* å †ï¼ˆä¼˜å…ˆé˜Ÿåˆ—ï¼‰ */
 
-//ÊµÏÖ×î´ó¶Ñ
+//å®ç°æœ€å¤§å †
 /*********************************/
-/* ¶ÑÓÃÊı×é´æ´¢£¬¸ù½ÚµãÔÚÏÂ±ê0¿ªÊ¼ */
+/* å †ç”¨æ•°ç»„å­˜å‚¨ï¼Œæ ¹èŠ‚ç‚¹åœ¨ä¸‹æ ‡0å¼€å§‹ */
 
 bool __shiftUp1(vector<int> &heap, int k){
     int p = (k - 1) / 2;
@@ -33,31 +33,31 @@ bool __shiftDown1(vector<int> &heap, int k){
     heap[k] = kv;
     return true;
 }
-//¶Ñ×îºóÔªËØ·ÅÔÚÍ·²¿Î»ÖÃµ÷ÓÃshiftDown
+//å †æœ€åå…ƒç´ æ”¾åœ¨å¤´éƒ¨ä½ç½®è°ƒç”¨shiftDown
 void lastTop1(vector<int> &heap){
     heap[0] = heap[heap.size() - 1];
     heap.pop_back();
     if(heap.size() > 1)
         __shiftDown1(heap, 0);
 }
-//¶Ñ×îºóÎ»ÖÃ²åÈëÔªËØ£¬ÔÚ×îºóÎ»ÖÃµ÷ÓÃshiftUp
+//å †æœ€åä½ç½®æ’å…¥å…ƒç´ ï¼Œåœ¨æœ€åä½ç½®è°ƒç”¨shiftUp
 void insertHeapLast1(vector<int> &heap, int v){
     heap.push_back(v);
     if(heap.size() > 1)
         __shiftUp1(heap, heap.size() - 1);
 }
-//¶ÑÍ·Î»ÖÃ²åÈëÔªËØ£¬ÔÚÍ·Î»ÖÃµ÷ÓÃshiftDown
+//å †å¤´ä½ç½®æ’å…¥å…ƒç´ ï¼Œåœ¨å¤´ä½ç½®è°ƒç”¨shiftDown
 void insertHeapTop1(vector<int> &heap, int v){
     heap[0] = v;
     if(heap.size() > 1)
         __shiftDown1(heap, 0);
 }
-//½¨Á¢¶Ñ£¬ÔÚµÚÒ»¸ö·ÇÒ¶×Ó½áµã¿ªÊ¼ÒÀ´Îµ÷ÓÃshiftDown
+//å»ºç«‹å †ï¼Œåœ¨ç¬¬ä¸€ä¸ªéå¶å­ç»“ç‚¹å¼€å§‹ä¾æ¬¡è°ƒç”¨shiftDown
 void heapify1(vector <int> &heap){
     for(int i = (heap.size() - 1 - 1) / 2; i >= 0; --i)
         __shiftDown1(heap, i);
 }
-//È¡³ö×î´óÔªËØ£¬±£³ÖÍêÈ«¶ş²æÊ÷×îºóÒ»¸öÔªËØ·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×î´ó¶ÑĞÔÖÊ
+//å–å‡ºæœ€å¤§å…ƒç´ ï¼Œä¿æŒå®Œå…¨äºŒå‰æ ‘æœ€åä¸€ä¸ªå…ƒç´ æ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å¤§å †æ€§è´¨
 int extractMaxLast1(vector <int> &heap){
     int maxi = heap[0];
     heap[0] = heap[heap.size() - 1];
@@ -66,7 +66,7 @@ int extractMaxLast1(vector <int> &heap){
         __shiftDown1(heap, 0);
     return maxi;
 }
-//È¡³ö×î´óÔªËØ£¬ÔªËØv·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×î´ó¶ÑĞÔÖÊ
+//å–å‡ºæœ€å¤§å…ƒç´ ï¼Œå…ƒç´ væ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å¤§å †æ€§è´¨
 int extractMaxItem1(vector <int> &heap, int v){
     int maxi = heap[0];
     heap[0] = v;
@@ -74,7 +74,7 @@ int extractMaxItem1(vector <int> &heap, int v){
         __shiftDown1(heap, 0);
     return maxi;
 }
-//¶ÑÅÅĞò£¬ÀûÓÃ¶Ñ¶¥µã×î´óĞÔÖÊ£¬ÒÀ´ÎÈ¡³ö¶¥µãÓë×îºóÔªËØ½»»»µ÷ÓÃshiftDown£¬ÔÚÔ­¿Õ¼äÊµÏÖÅÅĞò
+//å †æ’åºï¼Œåˆ©ç”¨å †é¡¶ç‚¹æœ€å¤§æ€§è´¨ï¼Œä¾æ¬¡å–å‡ºé¡¶ç‚¹ä¸æœ€åå…ƒç´ äº¤æ¢è°ƒç”¨shiftDownï¼Œåœ¨åŸç©ºé—´å®ç°æ’åº
 void heapSort1(vector <int> &heap){
     heapify1(heap);
     for(int i = heap.size() - 1; i > 0; --i){
@@ -86,9 +86,9 @@ void heapSort1(vector <int> &heap){
 /*********************************/
 
 
-//ÊµÏÖ×îĞ¡¶Ñ
+//å®ç°æœ€å°å †
 /*********************************/
-/* ¶ÑÓÃÊı×é´æ´¢£¬¸ù½ÚµãÔÚÏÂ±ê0¿ªÊ¼ */
+/* å †ç”¨æ•°ç»„å­˜å‚¨ï¼Œæ ¹èŠ‚ç‚¹åœ¨ä¸‹æ ‡0å¼€å§‹ */
 
 bool __shiftUp2(vector<int> &heap, int k){
     int p = (k - 1) / 2;
@@ -116,7 +116,7 @@ bool __shiftDown2(vector<int> &heap, int k){
     heap[k] = kv;
     return true;
 }
-//¶Ñ×îºóÔªËØ·ÅÔÚÍ·²¿Î»ÖÃµ÷ÓÃshiftDown
+//å †æœ€åå…ƒç´ æ”¾åœ¨å¤´éƒ¨ä½ç½®è°ƒç”¨shiftDown
 void lastTop2(vector<int> &heap){
     if(heap.size() > 0){
         heap[0] = heap[heap.size() - 1];
@@ -125,24 +125,24 @@ void lastTop2(vector<int> &heap){
         __shiftDown2(heap, 0);
     }
 }
-//¶Ñ²åÈëÔªËØ£¬ÔÚ×îºóÎ»ÖÃµ÷ÓÃshiftUp
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨æœ€åä½ç½®è°ƒç”¨shiftUp
 void insertHeapLast2(vector<int> &heap, int v){
     heap.push_back(v);
     if(heap.size() > 1)
         __shiftUp2(heap, heap.size() - 1);
 }
-//¶Ñ²åÈëÔªËØ£¬ÔÚÍ·Î»ÖÃµ÷ÓÃshiftDown
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨å¤´ä½ç½®è°ƒç”¨shiftDown
 void insertHeapTop2(vector<int> &heap, int v){
     heap[0] = v;
     if(heap.size() > 1)
         __shiftDown2(heap, 0);
 }
-//½¨Á¢¶Ñ£¬ÔÚµÚÒ»¸ö·ÇÒ¶×Ó½áµã¿ªÊ¼ÒÀ´Îµ÷ÓÃshiftDown
+//å»ºç«‹å †ï¼Œåœ¨ç¬¬ä¸€ä¸ªéå¶å­ç»“ç‚¹å¼€å§‹ä¾æ¬¡è°ƒç”¨shiftDown
 void heapify2(vector <int> &heap){
     for(int i = (heap.size() - 1 - 1) / 2; i >= 0; --i)
         __shiftDown2(heap, i);
 }
-//È¡³ö×îĞ¡ÔªËØ£¬±£³ÖÍêÈ«¶ş²æÊ÷×îºóÒ»¸öÔªËØ·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×îĞ¡¶ÑĞÔÖÊ
+//å–å‡ºæœ€å°å…ƒç´ ï¼Œä¿æŒå®Œå…¨äºŒå‰æ ‘æœ€åä¸€ä¸ªå…ƒç´ æ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å°å †æ€§è´¨
 int extractMinLast2(vector <int> &heap){
     int mini = heap[0];
     heap[0] = heap[heap.size() - 1];
@@ -151,7 +151,7 @@ int extractMinLast2(vector <int> &heap){
         __shiftDown2(heap, 0);
     return mini;
 }
-//È¡³ö×îĞ¡ÔªËØ£¬ÔªËØi·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×îĞ¡¶ÑĞÔÖÊ
+//å–å‡ºæœ€å°å…ƒç´ ï¼Œå…ƒç´ iæ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å°å †æ€§è´¨
 int extractMinItem2(vector <int> &heap, int v){
     int mini = heap[0];
     heap[0] = v;
@@ -159,7 +159,7 @@ int extractMinItem2(vector <int> &heap, int v){
         __shiftDown2(heap, 0);
     return mini;
 }
-//¶ÑÅÅĞò£¬ÀûÓÃ¶Ñ¶¥µã×îĞ¡ĞÔÖÊ£¬ÒÀ´ÎÈ¡³ö¶¥µãÓë×îºóÔªËØ½»»»µ÷ÓÃshiftDown£¬ÔÚÔ­¿Õ¼äÊµÏÖÅÅĞò
+//å †æ’åºï¼Œåˆ©ç”¨å †é¡¶ç‚¹æœ€å°æ€§è´¨ï¼Œä¾æ¬¡å–å‡ºé¡¶ç‚¹ä¸æœ€åå…ƒç´ äº¤æ¢è°ƒç”¨shiftDownï¼Œåœ¨åŸç©ºé—´å®ç°æ’åº
 void heapSort2(vector <int> &heap){
     heapify2(heap);
     for(int i = heap.size() - 1; i > 0; --i){
@@ -172,9 +172,9 @@ void heapSort2(vector <int> &heap){
 /*********************************/
 
 
-//ÊµÏÖË÷Òı×î´ó¶Ñ
+//å®ç°ç´¢å¼•æœ€å¤§å †
 /*********************************/
-/* ¶ÑÓÃË÷Òı±íÊ¾Êı×é´æ´¢£¬¸ù½ÚµãÔÚÏÂ±ê0¿ªÊ¼ */
+/* å †ç”¨ç´¢å¼•è¡¨ç¤ºæ•°ç»„å­˜å‚¨ï¼Œæ ¹èŠ‚ç‚¹åœ¨ä¸‹æ ‡0å¼€å§‹ */
 
 bool __shiftUp3(vector<int> &arr, vector<int> &heap, vector<int> &heappos, int k){
     int p = (k - 1) / 2;
@@ -202,7 +202,7 @@ bool __shiftDown3(vector<int> &arr, vector<int> &heap, vector<int> &heappos, int
     heap[k] = ki, heappos[ki] = k;
     return true;
 }
-//¶Ñ×îºóÔªËØ·ÅÔÚÍ·²¿Î»ÖÃµ÷ÓÃshiftDown
+//å †æœ€åå…ƒç´ æ”¾åœ¨å¤´éƒ¨ä½ç½®è°ƒç”¨shiftDown
 void lastTop3(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
     if(heap.size() > 0){
         heap[0] = heap[heap.size() - 1];
@@ -212,34 +212,34 @@ void lastTop3(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
             __shiftDown3(arr, heap, heappos, 0);
     }
 }
-//arriÎªÔªËØÔÚarrayÖĞË÷Òı
-//¶Ñ²åÈëÔªËØ£¬ÔÚ×îºóÎ»ÖÃµ÷ÓÃshiftUp
+//arriä¸ºå…ƒç´ åœ¨arrayä¸­ç´¢å¼•
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨æœ€åä½ç½®è°ƒç”¨shiftUp
 void insertHeapLast3(vector<int> &arr, vector<int> &heap, vector<int> &heappos, int arri){
     heap.push_back(arri);
     heappos.push_back(heap.size() - 1);
     if(heap.size() > 1)
         __shiftUp3(arr, heap, heappos, heap.size() - 1);
 }
-//¶Ñ²åÈëÔªËØ£¬ÔÚÍ·Î»ÖÃµ÷ÓÃshiftDown
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨å¤´ä½ç½®è°ƒç”¨shiftDown
 void insertHeapTop3(vector<int> &arr, vector<int> &heap, vector<int> &heappos, int arri){
     heap[0] = arri;
     heappos[arri] = 0;
     if(heap.size() > 1)
         __shiftDown3(arr, heap, heappos, 0);
 }
-//½¨Á¢¶Ñµ½Êı×éË÷Òı¡¢Êı×éµ½¶ÑË÷Òı
+//å»ºç«‹å †åˆ°æ•°ç»„ç´¢å¼•ã€æ•°ç»„åˆ°å †ç´¢å¼•
 void buildHeapIndex(vector<int> &heap, vector<int> &heappos, int n){
     heap.reserve(n), heappos.reserve(n);
     for(int i = 0; i < n; ++i)
         heap.push_back(i), heappos.push_back(i);
 }
-//½¨Á¢¶Ñ£¬ÔÚµÚÒ»¸ö·ÇÒ¶×Ó½áµã¿ªÊ¼ÒÀ´Îµ÷ÓÃshiftDown
+//å»ºç«‹å †ï¼Œåœ¨ç¬¬ä¸€ä¸ªéå¶å­ç»“ç‚¹å¼€å§‹ä¾æ¬¡è°ƒç”¨shiftDown
 void heapify3(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
     buildHeapIndex(heap, heappos, arr.size());
     for(int i = (heap.size() - 1 - 1) / 2; i >= 0; --i)
         __shiftDown3(arr, heap, heappos, i);
 }
-//È¡³ö×î´óÔªËØ£¬±£³ÖÍêÈ«¶ş²æÊ÷×îºóÒ»¸öÔªËØ·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×î´ó¶ÑĞÔÖÊ
+//å–å‡ºæœ€å¤§å…ƒç´ ï¼Œä¿æŒå®Œå…¨äºŒå‰æ ‘æœ€åä¸€ä¸ªå…ƒç´ æ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å¤§å †æ€§è´¨
 int extractMaxLast3(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
     int ret;
     ret = heap[0];
@@ -249,8 +249,8 @@ int extractMaxLast3(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
         __shiftDown3(arr, heap, heappos, 0);
     return ret;
 }
-//arriÎªÔªËØÔÚarrayÖĞË÷Òı
-//È¡³ö×î´óÔªËØ£¬ÔªËØi·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×î´ó¶ÑĞÔÖÊ
+//arriä¸ºå…ƒç´ åœ¨arrayä¸­ç´¢å¼•
+//å–å‡ºæœ€å¤§å…ƒç´ ï¼Œå…ƒç´ iæ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å¤§å †æ€§è´¨
 int extractMaxItem3(vector<int> &arr, vector<int> &heap, vector<int> &heappos, int arri){
     int ret;
     ret = heap[0];
@@ -259,7 +259,7 @@ int extractMaxItem3(vector<int> &arr, vector<int> &heap, vector<int> &heappos, i
         __shiftDown3(arr, heap, heappos, 0);
     return ret;
 }
-//¶ÑÅÅĞò£¬ÀûÓÃ¶Ñ¶¥µã×î´óĞÔÖÊ£¬ÒÀ´ÎÈ¡³ö¶¥µãÓë×îºóÔªËØ½»»»µ÷ÓÃshiftDown£¬ÔÚÔ­¿Õ¼äÊµÏÖÅÅĞò
+//å †æ’åºï¼Œåˆ©ç”¨å †é¡¶ç‚¹æœ€å¤§æ€§è´¨ï¼Œä¾æ¬¡å–å‡ºé¡¶ç‚¹ä¸æœ€åå…ƒç´ äº¤æ¢è°ƒç”¨shiftDownï¼Œåœ¨åŸç©ºé—´å®ç°æ’åº
 void heapSort3(vector<int> &arr, vector<int> &heap, vector<int> &heappos)
 {
     heapify3(arr, heap, heappos);
@@ -274,9 +274,9 @@ void heapSort3(vector<int> &arr, vector<int> &heap, vector<int> &heappos)
 /*********************************/
 
 
-//ÊµÏÖË÷Òı×îĞ¡¶Ñ
+//å®ç°ç´¢å¼•æœ€å°å †
 /*********************************/
-/* ¶ÑÓÃÊı×é´æ´¢£¬¸ù½ÚµãÔÚÏÂ±ê0¿ªÊ¼ */
+/* å †ç”¨æ•°ç»„å­˜å‚¨ï¼Œæ ¹èŠ‚ç‚¹åœ¨ä¸‹æ ‡0å¼€å§‹ */
 bool __shiftUp4(vector<int> &arr, vector<int> &heap, vector<int> &heappos, int k){
     int p = (k - 1) / 2;
     int ki = heap[k];
@@ -303,7 +303,7 @@ bool __shiftDown4(vector<int> &arr, vector<int> &heap, vector<int> &heappos, int
     heap[k] = ki, heappos[ki] = k;
     return true;
 }
-//¶Ñ×îºóÔªËØ·ÅÔÚÍ·²¿Î»ÖÃµ÷ÓÃshiftDown
+//å †æœ€åå…ƒç´ æ”¾åœ¨å¤´éƒ¨ä½ç½®è°ƒç”¨shiftDown
 void lastTop4(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
     if(heap.size() > 0){
         heap[0] = heap[heap.size() - 1];
@@ -313,27 +313,27 @@ void lastTop4(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
             __shiftDown4(arr, heap, heappos, 0);
     }
 }
-//¶Ñ²åÈëÔªËØ£¬ÔÚ×îºóÎ»ÖÃµ÷ÓÃshiftUp
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨æœ€åä½ç½®è°ƒç”¨shiftUp
 void insertHeapLast4(vector<int> &arr, vector<int> &heap, vector<int> &heappos, int arri){
     heap.push_back(arri);
     heappos.push_back(heap.size() - 1);
     if(heap.size() > 1)
         __shiftUp4(array, heap, heappos, heap.size() - 1);
 }
-//¶Ñ²åÈëÔªËØ£¬ÔÚÍ·Î»ÖÃµ÷ÓÃshiftDown
+//å †æ’å…¥å…ƒç´ ï¼Œåœ¨å¤´ä½ç½®è°ƒç”¨shiftDown
 void insertHeapTop4(vector<int> &arr, vector<int> &heap, vector<int> &heappos, int arri){
     heap[0] = arri;
     heappos[arri] = 0;
     if(heap.size() > 1)
         __shiftDown4(array, heap, heappos, 0);
 }
-//½¨Á¢¶Ñ£¬ÔÚµÚÒ»¸ö·ÇÒ¶×Ó½áµã¿ªÊ¼ÒÀ´Îµ÷ÓÃshiftDown
+//å»ºç«‹å †ï¼Œåœ¨ç¬¬ä¸€ä¸ªéå¶å­ç»“ç‚¹å¼€å§‹ä¾æ¬¡è°ƒç”¨shiftDown
 void heapify4(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
     buildHeapIndex(heap, heappos, arr.size());
     for(int i = (heap.size() - 1 - 1) / 2; i >= 0; --i)
         __shiftDown4(arr, heap, heappos, i);
 }
-//È¡³ö×îĞ¡ÔªËØ£¬±£³ÖÍêÈ«¶ş²æÊ÷×îºóÒ»¸öÔªËØ·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×îĞ¡¶ÑĞÔÖÊ
+//å–å‡ºæœ€å°å…ƒç´ ï¼Œä¿æŒå®Œå…¨äºŒå‰æ ‘æœ€åä¸€ä¸ªå…ƒç´ æ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å°å †æ€§è´¨
 int extractMinLast4(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
     int ret;
     ret = heap[0];
@@ -344,7 +344,7 @@ int extractMinLast4(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
         __shiftDown4(arr, heap, heappos, 0);
     return ret;
 }
-//È¡³ö×îĞ¡ÔªËØ£¬ÔªËØi·ÅÔÚ¸ùµ÷ÓÃshiftDown±£³Ö×îĞ¡¶ÑĞÔÖÊ
+//å–å‡ºæœ€å°å…ƒç´ ï¼Œå…ƒç´ iæ”¾åœ¨æ ¹è°ƒç”¨shiftDownä¿æŒæœ€å°å †æ€§è´¨
 int extractMinItem4(vector<int> &arr, vector<int> &heap, vector<int> &heappos, int arri){
     int ret;
     ret = heap[0];
@@ -354,12 +354,12 @@ int extractMinItem4(vector<int> &arr, vector<int> &heap, vector<int> &heappos, i
         __shiftDown4(arr, heap, heappos, 0);
     return ret;
 }
-//¶ÑÅÅĞò£¬ÀûÓÃ¶Ñ¶¥µã×îĞ¡ĞÔÖÊ£¬ÒÀ´ÎÈ¡³ö¶¥µãÓë×îºóÔªËØ½»»»µ÷ÓÃshiftDown£¬ÔÚÔ­¿Õ¼äÊµÏÖÅÅĞò
+//å †æ’åºï¼Œåˆ©ç”¨å †é¡¶ç‚¹æœ€å°æ€§è´¨ï¼Œä¾æ¬¡å–å‡ºé¡¶ç‚¹ä¸æœ€åå…ƒç´ äº¤æ¢è°ƒç”¨shiftDownï¼Œåœ¨åŸç©ºé—´å®ç°æ’åº
 void heapSort4(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
     heapify4(arr, heap, heappos);
     for(int i = heap.size() - 1; i > 0; --i){
         swap(heap[0], heap[i]);
-        heappos[heap[0]] = 0;  //´æÔÚÎÊÌâ£¬¶Ñ³¤¶È²»±ä·ÅÔÚÍ·Î»ÖÃµÄÔªËØshiftDownÓÖ·Åµ½½»»»µ½×îºóÔªËØºóÃæ
+        heappos[heap[0]] = 0;  //å­˜åœ¨é—®é¢˜ï¼Œå †é•¿åº¦ä¸å˜æ”¾åœ¨å¤´ä½ç½®çš„å…ƒç´ shiftDownåˆæ”¾åˆ°äº¤æ¢åˆ°æœ€åå…ƒç´ åé¢
         if(i > 1)
             __shiftDown4(arr, heap, heappos, 0);
     }

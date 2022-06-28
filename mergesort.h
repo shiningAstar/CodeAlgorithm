@@ -1,7 +1,7 @@
 #ifndef MERGE_H_INCLUDED
 #define MERGE_H_INCLUDED
 
-/* ¹é²¢ÅÅĞò */
+/* å½’å¹¶æ’åº */
 
 #define lessMerge(t1, t2) (t1 < t2)
 #define lessEqualMerge(t1, t2) (t1 <= t2)
@@ -18,11 +18,11 @@ int compareMerge(T t1, T t2)
         return t1 > t2;
 }*/
 
-//¹é²¢Á½¸öÊı×é£¬·¶Î§[l,mid][mid+1,r]
+//å½’å¹¶ä¸¤ä¸ªæ•°ç»„ï¼ŒèŒƒå›´[l,mid][mid+1,r]
 template<typename T>
 void __merge(vector<T> &nums, int l, int mid, int r, vector<T> &numsSort)
 {
-    //ÁÙÊ±´æ´¢µÄÁ½²¿·ÖÓĞĞòÊı×é¹é²¢ÎªÒ»¸öÓĞĞòÊı×é
+    //ä¸´æ—¶å­˜å‚¨çš„ä¸¤éƒ¨åˆ†æœ‰åºæ•°ç»„å½’å¹¶ä¸ºä¸€ä¸ªæœ‰åºæ•°ç»„
     numsSort.assign(nums.begin() + l, nums.begin() + r + 1);
 
     mid = mid + 1 - l;
@@ -39,18 +39,18 @@ void __merge(vector<T> &nums, int l, int mid, int r, vector<T> &numsSort)
     }
 }
 
-//µİ¹éÊµÏÖ¹é²¢ÅÅĞò
+//é€’å½’å®ç°å½’å¹¶æ’åº
 /***********************************************/
-//Êı×éÏÂ±ê´Ó0¿ªÊ¼
-/* ÅÅĞò[l,r]·¶Î§ÄÚÊı×é */
+//æ•°ç»„ä¸‹æ ‡ä»0å¼€å§‹
+/* æ’åº[l,r]èŒƒå›´å†…æ•°ç»„ */
 template<typename T>
 void __mergeSort1(vector<T> &nums, int l, int r, vector<T> &numsSort)
 {
-    //µ¥¸ö²»ÓÃÅÅĞò
+    //å•ä¸ªä¸ç”¨æ’åº
     if(l >= r)
         return;
 
-    //ÔÚÖĞÎ»ÊıÎ»ÖÃ¶ş·Ö£¬Å¼Êı¸öÔªËØÊı×éÈ¡ÖĞ¼äÆ«ÓÒÎ»ÖÃ
+    //åœ¨ä¸­ä½æ•°ä½ç½®äºŒåˆ†ï¼Œå¶æ•°ä¸ªå…ƒç´ æ•°ç»„å–ä¸­é—´åå³ä½ç½®
     int mid = l + (r - l) / 2;
 
     __mergeSort1(nums, l, mid, numsSort);
@@ -70,7 +70,7 @@ void mergeSort1(vector<T> &nums)
 }
 /***********************************************/
 
-/* µİÍÆÊµÏÖ¹é²¢ÅÅĞò */
+/* é€’æ¨å®ç°å½’å¹¶æ’åº */
 /***********************************************/
 
 template<typename T>
@@ -127,7 +127,7 @@ void mergeSort2(vector<T> &nums)
 }
 /***********************************************/
 
-//×Ôµ×ÏòÉÏÊµÏÖ¹é²¢ÅÅĞò
+//è‡ªåº•å‘ä¸Šå®ç°å½’å¹¶æ’åº
 /***********************************************/
 
 template<typename T>
@@ -139,10 +139,10 @@ void mergeSort3(vector<T> &nums)
     int mid;
     numsSort.reserve(n);
 
-    //ÒÔsÎªÇø¼äÁ½Á½ºÏ²¢Öğ½¥Ôö±¶s
+    //ä»¥sä¸ºåŒºé—´ä¸¤ä¸¤åˆå¹¶é€æ¸å¢å€s
     for(int s = 1; s < n; s += s)
     {
-        //ÒÀ´Î¹é²¢[l,mid],[mid,r]Á½¸öÇø¼ä£¬½áÎ²±ß½çÇ°Çø¼ä²»×ãmid>=n-1²»¹é²¢£¬ºóÇø¼ä²»×ãr>=nÈ¡[mid,n]
+        //ä¾æ¬¡å½’å¹¶[l,mid],[mid,r]ä¸¤ä¸ªåŒºé—´ï¼Œç»“å°¾è¾¹ç•Œå‰åŒºé—´ä¸è¶³mid>=n-1ä¸å½’å¹¶ï¼ŒååŒºé—´ä¸è¶³r>=nå–[mid,n]
         for(int l = 0; l < n; l += s + s)
         {
             mid = l + s - 1;
