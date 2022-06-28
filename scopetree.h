@@ -18,7 +18,7 @@ void updateScopeTree(int sl, int sr, int value, int l, int r, int node){
         updateScopeTree(sl, sr, value, l, mid, 2 * node);
     }
     if(mid < sr) { //修改区间在右半区有一部分，修改右半区对应细分部分
-        updateScopeTree(sl, sr, value, mid + 1, 2 * n + 1);
+        updateScopeTree(sl, sr, value, mid + 1, r, 2 * node + 1);
     }
     //线段树记录区间和
     tree[node] = tree[2 * node] + tree[2 * node + 1];
