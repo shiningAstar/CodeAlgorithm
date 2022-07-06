@@ -318,14 +318,14 @@ void insertHeapLast4(vector<int> &arr, vector<int> &heap, vector<int> &heappos, 
     heap.push_back(arri);
     heappos.push_back(heap.size() - 1);
     if(heap.size() > 1)
-        __shiftUp4(array, heap, heappos, heap.size() - 1);
+        __shiftUp4(arr, heap, heappos, heap.size() - 1);
 }
 //堆插入元素，在头位置调用shiftDown
 void insertHeapTop4(vector<int> &arr, vector<int> &heap, vector<int> &heappos, int arri){
     heap[0] = arri;
     heappos[arri] = 0;
     if(heap.size() > 1)
-        __shiftDown4(array, heap, heappos, 0);
+        __shiftDown4(arr, heap, heappos, 0);
 }
 //建立堆，在第一个非叶子结点开始依次调用shiftDown
 void heapify4(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
