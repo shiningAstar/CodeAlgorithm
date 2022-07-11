@@ -176,7 +176,7 @@ int m;
 vector<vector<int>> g;
 vector<vector<bool>> vis;
 
-const int d[4][2] = {{0,-1},{-1,0},{0,1},{1,0}};
+const int d[4][2] = {{0,-1},{-1,0},{0,1},{1,0}};   //移动数组
 
 void dfs(int i, j){
     //执行点遍历
@@ -193,8 +193,8 @@ void dfs(int i, j){
 
 void moveinGrid(vector<vector<int>> grid){
     g.swap(grid);
-    n = gird.size();
-    m = grid[0].size();
+    n = g.size();
+    m = g[0].size();
     vis.assign(n, vector<bool>(m, false));
     dfs(0, 0);
 }

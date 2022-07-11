@@ -34,7 +34,7 @@ vector<vector<int>> s;
 vector<vector<int>> nu;
 
 void init_sum(){
-    s.assign(n, vector<int>(m, 0));
+    s.assign(n + 1, vector<int>(m + 1, 0));
     for(int i = 1; i <= n; ++i)
         for(int j = 1; j <= m; ++j)
             s[i][j] = s[i - 1][j] + s[i][j - 1] - s[i - 1][j - 1] + nu[i - 1][j - 1];        
