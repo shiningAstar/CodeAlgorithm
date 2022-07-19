@@ -39,9 +39,10 @@ void slopek(vector<int> &p1, vector<int> &p2, int &x, int &y){
    inter1左端等于inter2左端，右端小于不含inter2右端1
    inter1左右端等于inter2左右端0
    inter1大于-1 */
-int compInterval(vector<int> &inter1, vector<int> &inter2){
+int compInterval(const vector<int> &inter1, const vector<int> &inter2){
     if(inter1[0] < inter2[0]){
-        if(inter1[1] + 1 < inter2[0]) return 4;
+        //相邻端点区间是否合并，如[1,2][3,4]合并[1,4]，启用+1
+        if(inter1[1] /*+ 1*/ < inter2[0]) return 4;
         else if(inter1[1] < inter2[1]) return 3;
         else return 2;
     }
@@ -54,7 +55,7 @@ int compInterval(vector<int> &inter1, vector<int> &inter2){
 
 /*合并inter左区间到mergeInter右区间，存在inter<mergeInter，
   返回合并1不能合并0区间非法-1*/
-int mergeIntervalr(vector<int> &inter, vector<int> &mergeInter){
+int mergeIntervalr(const vector<int> &inter, vector<int> &mergeInter){
     int ret = compInterval(inter, mergeInter);
     if(ret == 4) return 0;
     if(ret == 1) return 1;
@@ -62,11 +63,12 @@ int mergeIntervalr(vector<int> &inter, vector<int> &mergeInter){
         mergeInter[0] = inter[0];
         return 1;
     }
+    if(ret == 2) return -2;
     return -1;
 }
 /*合并inter右区间到mergeInter左区间，存在mergeInter<inter，
   返回合并1不能合并0区间非法-1，合并后还能合并即mergeInter[1] > inter[1]返回2*/
-int mergeIntervall(vector<int> &mergeInter, vector<int> &inter){
+int mergeIntervall(vector<int> &mergeInter, const vector<int> &inter){
     int ret = compInterval(mergeInter, inter);
     if(ret == 4) return 0;
     if(ret == 3 || ret == 1){
@@ -81,35 +83,36 @@ int mergeIntervall(vector<int> &mergeInter, vector<int> &inter){
    区间互不重叠，每个区间范围[interval[0],interval[1]] */
 void insertInterval(set<vector<int>> &intervals, vector<int> interval){
     set<vector<int>>::iterator ceil = intervals.lower_bound(interval);
-    set<vector<int>>::iterator ceill = ceil, bbegin = --intervals.begin();
-    --ceill;
+    set<vector<int>>::iterator ceill = ceil;
     int ret;
     if(ceil == intervals.end()){
-        //没有ceil，看左侧是否需合并
-        if(ceill == bbegin) intervals.insert(interval);
-        else if((ret = mergeIntervalr(*ceill, interval)) != -1){
-            if(ret) intervals.erase(ceill);
-            intervals.insert(interval);
-        }
-    }
-    else{
-        //合并右侧ceil和左侧--ceil
-        //右侧到不覆盖全部的第一个区间，即interval[1] < *ceil[1]
-        while(ceil != intervals.end() && (ret = mergeIntervall(interval, *ceil)) == 2)
-            ceil = intervals.erase(ceil);
-
-        if(ret != -1){
-            if(ret) intervals.erase(ceil);
-            intervals.insert(interval);
-        }
-
-        //左侧只看一个区间
-        if(ceill != bbegin){
-            if((ret = mergeIntervalr(*ceill, interval)) != -1){
-                if(ret) intervals.erase(ceill);
+        //没有ceil，看左侧是否需合并，ceil为begin元素不需合并
+        if(ceil == intervals.begin()) intervals.insert(interval);
+        else {
+            --ceill; 
+            if((ret = mergeIntervalr(*ceill, interval)) >= 0){
+                if(ret > 0) intervals.erase(ceill);
                 intervals.insert(interval);
             }
         }
+    } else {
+        //合并左侧--ceill和右侧ceil
+
+        //左侧只看一个区间，ceil不为begin元素需合并
+        if(ceil != intervals.begin()){
+            --ceill;
+            if((ret = mergeIntervalr(*ceill, interval)) > 0)
+                intervals.erase(ceill);
+            else if(ret == -2) return;
+        }
+
+        //右侧到不覆盖全部的第一个区间，即interval[1] < *ceil[1]
+        while(ceil != intervals.end() && (ret = mergeIntervall(interval, *ceil)) > 0)
+            ceil = intervals.erase(ceil);
+
+        //合并了左区间和右区间的interval放入集合
+        if(ret == 0)
+            intervals.insert(interval);
     }
 }
 

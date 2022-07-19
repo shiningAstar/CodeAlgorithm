@@ -22,7 +22,7 @@ int binarySearch(vector<int> arr, int t)
         /* 只有两种情况的判断，找大于(等于)目标值第一个即目标值右边的查找后左指针指向，
            找小于(等于)目标值第一个即目标值左边的查找后右指针指向 */
         /* 
-        if(arr[mid] >= t))
+        if(arr[mid] >= t)
             r = mid - 1;
         else
             l = mid + 1; */
