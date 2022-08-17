@@ -130,38 +130,110 @@ void bfsGraph()
 
 /*******************************/
 
+
+/*******************************/
+/* 分层广度优先搜索 */
+void bfs(){
+    vector<vector<int>> adj;
+
+    /* 层节点遍历，如果层节点需排序可用set，
+        如果每次遍历只需拿出最（大/小）值节点，可使用priority_queue不分层 */
+    vector<int> ls;
+    //set<int> ls;
+    //priority_queue<int> ns;
+
+    /* 初始置放第一层节点，如果只第一个为第一层，放0 */
+    ln.emplace_back(0);
+    //for(;;) ln.emplace_back();
+    
+    /* 临时存放下一层节点，使用前置换到ls */
+    vector<int> lt;
+    int n, m;
+    int p;
+    while(!ls.empty()){
+        n = ls.size();
+        for(int i = 0; i < n; ++i){
+            p = ls[i];
+            m = adj[p].size();
+            for(int j = 0; j < m; ++j){
+                /* 下一层节点放置lt暂存 */
+                lt.emplace_back(adj[p][j]);
+            }
+        }
+        /* 一层结束，暂存的下一层节点置换回ls */
+        ls.swap(lt);
+        lt.clear();
+    }
+}
+
+/*******************************/
+
+
 /*******************************/
 //递归实现有向图邻接表深度优先遍历，判断是否有环
 
 int n;
-vector<vector<int>> adj;
-vector<bool> vis;
+vector<vector<int>> adj;  //adj[i] 代表有节点i指向adj[i]的有向边
+vector<int> vis;
 
-//visited记录节点是否遍历，三种状态：未遍历、在遍历中（邻接节点未遍历完）、结束遍历（邻接节点全部遍历）{-1，0，1}
+//vis记录节点是否遍历，三种状态：未遍历、在遍历中（邻接节点未遍历完）、结束遍历（邻接节点全部遍历）{-1，0，1}
 //遍历中的节点被再次遍历到，则存在环
 /* 结束的节点后面节点全部遍历完不可能是当前遍历中路径的前面节点，遍历中节点一定在当前遍历中路径前面的某位置 */
-bool __dfs(int v)
-{
+bool __dfs(int v){
     //遍历v
     //cout<<nodes[v].val;
-    visited[v] = 0;
+    vis[v] = 0;
     for(int i = 0; i < adj[v].size(); i++){
         int w = adj[v][i];
-        if(visited[w] == 0) return false;
-        if(visited[w] != 1 && !__dfs(adj, visited, w)) return false;
+        if(vis[w] == 0) return false;
+        if(vis[w] == -1 && !__dfs(w)) return false;
     }
-    visited[v] = 1;
+    vis[v] = 1;
     return true;
 }
 
-bool dfsGraph()
-{
+bool dfs(){
     n = adj.size();
-    vis.assign(n, false);
+    vis.assign(n, -1);
     //连通图只遍历一遍，不用记录ccount和id
     //return __dfs(0);
     for(int i = 0; i < n; i++){
-        if(visited[i] < 1 && !__dfs(adj, visited, i)) return false;
+        if(vis[i] != 1 && !__dfs(i)) return false;
+    }
+    return true;
+}
+
+/*******************************/
+
+/*******************************/
+//递归实现无向图邻接表深度优先遍历，判断是否有环
+
+int n;
+vector<vector<int>> adj;  //adj[i] 代表节点i和adj[i]有边连接
+vector<int> vis;
+
+//vis记录节点是否遍历，二种状态：未遍历、已遍历遍历（邻接节点全部遍历）{0，1}
+//遍历中的节点被再次遍历到，则存在环
+/* 全部已节点都可以通当前节点，因为无向边可双向通路遍历，遍历到已遍历节点一定存在环 */
+bool __dfs(int v){
+    //遍历v
+    //cout<<nodes[v].val;
+    vis[v] = 1;
+    for(int i = 0; i < adj[v].size(); i++){
+        int w = adj[v][i];
+        if(vis[w]) return false;
+        if(!vis[w] && !__dfs(w)) return false;
+    }
+    return true;
+}
+
+bool dfs(){
+    n = adj.size();
+    vis.assign(n, 0);
+    //连通图只遍历一遍
+    //return __dfs(0);
+    for(int i = 0; i < n; i++){
+        if(!vis[i] && !__dfs(i)) return false;
     }
     return true;
 }

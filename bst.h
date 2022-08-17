@@ -278,18 +278,18 @@ void bfsBST(TreeNode *root)
         return;
     queue<TreeNode *> que;
 
-    que.push(root);
+    que.emplace(root);
 
     while(!que.empty())
     {
-        TreeNode *node = que.top();
+        TreeNode *node = que.front();
         que.pop();
         //遍历node
         //cout<<node->val;
         if(node->left)
-            que.push(node->left);
+            que.emplace(node->left);
         if(node->right)
-            que.push(node->right);
+            que.emplace(node->right);
     }
 
 }
