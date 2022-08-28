@@ -51,5 +51,33 @@ void preSumCal(vector<vector<int>> &nums){
 
 /*******************************/
 
+/*******************************/
+/* 差分数组，记录数组变化量累计过程，用于数组范围变化多次，过程中不需查询，
+   变化后直接整理元素最终值，查询要整理前续全部变化后再得到元素最终值 */
+
+int n;
+vector<int> d;
+vector<int> nu;
+
+void init_dif() {
+    n = nu.size();
+    d.assign(n + 1, 0);
+}
+
+/* 区间[l,r]元素变化val */
+void range_update(int l, int r, int val){
+    d[l] += val; d[r + 1] -= val;
+}
+
+/* 生效全部变化，计算最终值 */
+void effect_update(){
+    int dif = 0;
+    for(int i = 0; i < n; ++i){
+        dif += d[i];
+        nu[i] += dif;
+    }
+}
+
+/*******************************/
 
 #endif // PRESUM_H_INCLUDED

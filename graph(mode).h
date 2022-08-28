@@ -143,7 +143,7 @@ void bfs(){
     //priority_queue<int> ns;
 
     /* 初始置放第一层节点，如果只第一个为第一层，放0 */
-    ln.emplace_back(0);
+    ls.emplace_back(0);
     //for(;;) ln.emplace_back();
     
     /* 临时存放下一层节点，使用前置换到ls */
@@ -275,5 +275,70 @@ void moveinGrid(vector<vector<int>> grid){
 /*******************************/
 
 
+
+/*******************************/
+/* 有向无环图DAG拓扑排序 */
+
+    vector<vector<int>> a;
+    int n;
+    vector<int> o;
+    //vector<int> np;     //记录节点到顺序位置
+
+    bool topo(){
+        /* 入度为0的顶点队列 */
+        queue<int> ns;
+        /* 每个顶点入度数 */
+        vector<int> ni(n, 0);         //节点号0~n-1
+        //vector<int> ni(n + 1, 0);   //节点号1~n
+
+        int vn;
+        int node;
+        //int c = 0;    //记录节点到顺序位置时，使用当前位置
+
+        for(int i = 0; i < n; ++i){     //节点号0~n-1
+        //for(int i = 1; i <= n; ++i){   //节点号1~n
+            auto &v = a[i]; vn = v.size();
+            for(int j = 0; j < vn; ++j) ++ni[v[j]];
+        }
+
+        for(int i = 0; i < n; ++i) if(ni[i] == 0) ns.emplace(i);     //节点号0~n-1
+        //for(int i = 1; i <= n; ++i) if(ni[i] == 0) ns.emplace(i);  //节点号1~n
+
+        while(!ns.empty()){
+            node = ns.front(); ns.pop();
+            /* 入度为0排在剩下顶点的最前面 */
+            o.emplace_back(node);
+            //np[node] = c; ++c;    //记录节点到当前位置
+            /* 删除已排序顶点的出度对应顶点的入度，再把删除后入度为0顶点加入队列 */
+            auto &v = a[node]; vn = v.size();
+            for(int j = 0; j < vn; ++j) {
+                int &vj = v[j];
+                int &vjni = ni[vj];
+                --vjni;
+                if(vjni == 0) ns.emplace(vj);
+            }
+        }
+
+        if(o.size() < n/* c < n *//* 记录节点到当前位置时 */) return false;
+        return true;
+    }
+
+    void topo_init(int noden, vector<vector<int>> p){
+        n = noden;
+        a.assign(n);        //节点号0~n-1
+        //a.assign(n + 1);  //节点号1~n
+        np.assign(n);       //节点号0~n-1
+        //np.assign(n + 1);   //节点号1~n
+        int pn = p.size();
+        for(int i = 0; i < pn; ++i) a[p[i][0]].emplace_back(p[i][1]);
+        if(topo()){
+            /* 排序正常，对结果o操作 */
+            
+        } else {
+            /* 排序不正常，图中有环 */
+        }
+    }
+
+/*******************************/
 
 #endif // GRAPH_H_INCLUDED
