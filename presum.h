@@ -80,4 +80,19 @@ void effect_update(){
 
 /*******************************/
 
+
+/*******************************/
+/* 前缀和 1-n 元素编号 */
+    template<typename T, typename Ts, Ts zero>
+    typedef struct PSum{
+        vector<Ts> s;int n;PSum(){} PSum(vector<T> &v){build(v);}
+        void build(vector<T> &v){n = v.size();s.assign(n + 1,zero);for(int i=1;i<=n;++i)s[i]=s[i-1]+v[i-1];}
+        Ts search(int fst_idx, int lst_idx){return s[lst_idx+1]-s[fst_idx];}
+        int binarysearch(Ts sum){int l=1,r=n;int mid;
+            while(l <= r){mid=l+(r-l)/2;if(s[mid] >= sum)r = mid - 1;else l = mid + 1;}return l-1;}
+    };
+
+
+/*******************************/
+
 #endif // PRESUM_H_INCLUDED

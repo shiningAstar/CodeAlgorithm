@@ -368,4 +368,122 @@ void heapSort4(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
 
 /*********************************/
 
+
+/*********************************/
+/* 优先队列，可插入、弹出队头、删除中间元素 */
+    template<typename T, int MaxTop = 1> /* MaxTop = 0 最小堆 */
+    class PQ {
+    public:
+        vector<T> c;
+        vector<T> c_e;
+        PQ() {};
+        PQ(const PQ<T, MaxTop> &pq){ c = pq.c;}
+        template<typename Iter = typename vector<T>::iterator>
+        PQ(Iter first, Iter last){ c.assign(first, last);heapify();}
+        void heapify(){
+            size_t len = size(); size_t p = (len - 1 - 1) / 2;
+            while(true) {T t((move(*this)[p])); __shift_down(c.begin(), c.end(), p, move(t)); if(p == 0) break; --p;}
+        }
+        T& top(){ return c.front();}
+        T pop(){
+            T t(move(c.front())); if(size() > 1)
+            {T tt(move(c.back())); c.pop_back(); __shift_down(c.begin(), c.end(), size_t(0), move(tt));}
+            else c.pop_back(); return t;
+        }
+        T pop_lz(){
+            while(!empty_lz() && !c.empty() && !c_e.empty() && c.front() == c_e.front){
+                pop(); T t(move(c_e.front())); if(c_e.size() > 1)
+                {T tt(move(c_e.back())); c_e.pop_back(); __shift_down(c_e.begin(), c_e.end(), size_t(0), move(tt));}
+                else c_e.pop_back();
+            } return pop();
+        }
+        template<typename Tp>
+        void emplace(Tp &&t){
+            c.emplace_back(forward<Tp>(t)); size_t len = size(); 
+            if(len > 1) { T tt(move(c.back()));__shift_up(c.begin(), c.end(), len - 1, move(tt));}
+        }
+        bool empty(){ return c.empty();}
+        size_t size(){ return c.size();}
+        bool empty_lz(){ return size_lz() == 0;}
+        size_t size_lz(){ return c.size() - c_e.size();}
+        template<typename Tp>
+        T pop_emplace(Tp &&t){
+            T tt(move(c.front()));__shift_down(c.begin(), c.end(), size_t(0), forward<Tp>(t)); return tt;
+        }
+        template<typename Tp>
+        T pop_emplace_lz(Tp &&t){
+            while(!empty_lz() && !c.empty() && !c_e.empty() && c.front() == c_e.front){
+                pop(); if(c_e.size() > 1){T tt(move(c_e.back())); 
+                    c_e.pop_back(); __shift_down(c_e.begin(), c_e.end(), size_t(0), move(tt));}
+                else c_e.pop_back();
+            } return pop_emplace(forward<Tp>(t));
+        }
+        void erase(size_t idx){
+            T t(move(c.back())); c.pop_back();
+            if(__shift_down(c.begin(), c.end(), size_t(idx), move(t)) < 0)
+                {T tidx(move((*this)[idx])); __shift_up(c.begin(), c.end(), size_t(idx), move(tidx));}
+        }
+        template<typename Tp>
+        void erase_lz(Tp &&t){
+            c_e.emplace_back(forward<Tp>(t)); size_t len = c_e.size();
+            if(len > 1) {T tt(move(c_e.back())); __shift_up(c_e.begin(), c_e.end(), len - 1, move(tt));}
+        }
+        template<typename Tp>
+        void replace(size_t idx, Tp &&t){
+            if(__shift_down(c.begin(), c.end(), size_t(idx), move(t)) < 0)
+                {T tt(move((*this)[idx])); __shift_up(c.begin(), c.end(), size_t(idx), move(tt));}
+        }
+        template<typename Tp>
+        void replace_lz(Tp &&v, Tp &&t){
+            erase_lz(forward<Tp>(v)); emplace(forward<Tp>(t));
+        }
+        T& back(){ return c.back();}
+        T& operator[](size_t i) { return c[i];}
+        template<typename RAIter, typename Dis, typename Tp>
+        int __shift_up(RAIter __first, RAIter __last, Dis __pos, Tp &&__v) {
+            Dis __hole = __pos;
+            Dis __p = (__hole - 1) / 2;
+            Dis __len = __last - __first;
+            if constexpr (MaxTop){
+                while(__hole > 0 && *(__first + __p) < __v){
+                    *(__first + __hole) = move(*(__first + __p));
+                    __hole = __p, __p = (__hole - 1) / 2;
+                }
+            } else {
+                while(__hole > 0 && *(__first + __p) > __v){
+                    *(__first + __hole) = move(*(__first + __p));
+                    __hole = __p, __p = (__hole - 1) / 2;
+                }
+            }
+            *(__first + __hole) = forward<Tp>(__v);
+            if(__hole == __pos) return -1;
+            else return 0;
+        }
+        template<typename RAIter, typename Dis, typename Tp>
+        int __shift_down(RAIter __first, RAIter __last, Dis __pos, Tp &&__v) {
+            Dis __hole = __pos;
+            Dis __c = __hole * 2 + 1;
+            Dis __len = __last - __first;
+            while(__c < __len){
+                if constexpr (MaxTop){
+                    if(__c + 1 < __len && *(__first + __c + 1) > *(__first + __c)) ++__c;
+                } else {
+                    if(__c + 1 < __len && *(__first + __c + 1) < *(__first + __c)) ++__c;
+                }
+                if constexpr (MaxTop){
+                    if(*(__first + __c) <= __v) break;
+                } else {
+                    if(*(__first + __c) >= __v) break;
+                }
+                *(__first + __hole) = move(*(__first + __c));
+                __hole = __c, __c = __hole * 2 + 1;
+            }
+            *(__first + __hole) = forward<Tp>(__v);
+            if(__hole == __pos) return -1;
+            else return 0;
+        }
+    };
+
+/*********************************/
+
 #endif // HEAP_H_INCLUDED

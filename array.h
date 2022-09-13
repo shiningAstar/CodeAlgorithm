@@ -35,4 +35,27 @@ void enum_seq(){
 
 /*******************************/
 
+
+/*******************************/
+/* 索引排序 */
+
+vector<int> nus;
+vector<int> oidx;
+int n;
+
+bool cmp(const int &x1, const int &x2){
+    return nus[x1] < nus[x2];
+}
+
+void idx_sort(vector<int> nums){
+    nus.swap(nums);
+    n = nus.size();
+    oidx.assign(n);
+    for(int i = 0; i < n; ++i) oidx[i] = i;
+    sort(oidx.begin(), oidx.end(), cmp);
+}
+
+/*******************************/
+
+
 #endif //ARRAY_H_INCLUDED

@@ -86,4 +86,51 @@ void buildScopeTree(int l, int r, int node){
 
 /***************************/
 
+
+/***************************/
+/* 线段树，记录查询区间最大最小值、区间和，更新单点，查询更新复杂度均为logn */
+
+    template<typename T, T zero, T minv, T maxv, int Rt = 1>  //N个元素的区间，Rt记录类型 1区间和 2最大值 3最小值
+    class STree{
+        public:
+            vector<T> t;int l, r;
+            template<typename Tp>STree(vector<Tp> &v, int fst_idx, int lst_idx){
+                l = fst_idx; r = lst_idx;
+                t.assign(4 * (r - l + 1), zero);
+                build(v, l, r, 1);
+            }
+            void build(vector<T> &v, int l, int r, int node){
+                if(l == r){t[node] = v[l];return;}
+                int mid = l + ((r - l) >> 1);build(v, l, mid, 2 * node);build(v, mid + 1, r, 2 * node + 1);
+                if constexpr (Rt == 1)t[node] = t[2 * node] + t[2 * node + 1];
+                else if constexpr (Rt == 2)t[node] = max(t[2 * node], t[2 * node + 1]);
+                else if constexpr (Rt == 3)t[node] = min(t[2 * node], t[2 * node + 1]);
+            }
+            T search(int sl, int sr){return search(sl, sr, l, r, 1);}
+            T search(int sl, int sr, int l, int r, int node){
+                if(sl <= l && r <= sr){return t[node];}int mid = l + ((r - l) >> 1);T res;
+                if constexpr (Rt == 1) res = zero;else if constexpr (Rt == 2) res = minv; else if constexpr (Rt == 3) res = maxv;
+                if(sl <= mid){if constexpr (Rt == 1)res += search(sl, sr, l, mid, 2 * node);
+                    else if constexpr (Rt == 2)res = max(res, search(sl, sr, l, mid, 2 * node));
+                    else if constexpr (Rt == 3)res = min(res, search(sl, sr, l, mid, 2 * node));}
+                if(mid < sr){if constexpr (Rt == 1)res += search(sl, sr, mid + 1, r, 2 * node + 1);
+                    else if constexpr (Rt == 2)res = max(res, search(sl, sr, mid + 1, r, 2 * node + 1));
+                    else if constexpr (Rt == 3)res = min(res, search(sl, sr, mid + 1, r, 2 * node + 1));}return res;
+            }
+            void update_add(int sl, int sr, T value){return update<1>(sl,sr,value,l,r,1);}
+            void update_ass(int sl, int sr, T value){return update<0>(sl,sr,value,l,r,1);}
+            void update_add(int node, T value){return update<1>(node,node,value,l,r,1);}
+            void update_ass(int node, T value){return update<0>(node,node,value,l,r,1);}
+            template<int add = 1>  void update(int sl, int sr, T value, int l, int r, int node){ //add 1修改增加value 0修改赋值value
+                if(l == r){if constexpr (add == 1) t[node] += value;else if constexpr (add == 0) t[node] = value;return;}
+                int mid = l + ((r - l) >> 1);if(sl <= mid) update<add>(sl, sr, value, l, mid, 2 * node);
+                if(mid < sr) update<add>(sl, sr, value, mid + 1, r, 2 * node + 1);
+                if constexpr (Rt == 1)t[node] = t[2 * node] + t[2 * node + 1];
+                else if constexpr (Rt == 2)t[node] = max(t[2 * node], t[2 * node + 1]);
+                else if constexpr (Rt == 3)t[node] = min(t[2 * node], t[2 * node + 1]);
+            }
+    };
+
+
+/***************************/
 #endif // SCOPETREE_H_INCLUDED
