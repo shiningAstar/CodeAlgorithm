@@ -58,4 +58,24 @@ void idx_sort(vector<int> nums){
 /*******************************/
 
 
+/*******************************/
+/* 打印容器 */
+template<typename Iter>void pt(Iter it){cout<<*it<<" ";}
+template<typename Iter>void pt(Iter first,Iter last){for(;first!=last;++first)pt(first);cout<<endl;}
+
+/* 循环宏 */
+#define rep(i,a,b) for(int i = a, __ = b; i < __; ++i)
+#define rrep(i,b,a) for(int i = b; i >= a; --i)
+#define repc(it,ct) for(auto it = ct.begin(); it != ct.end(); ++it)
+
+/* 函数短称 */
+#define eb emplace_back
+#define em emplace
+
+/* 类型定义 */
+typedef pair<int,int> pii;
+
+/*******************************/
+
+
 #endif //ARRAY_H_INCLUDED

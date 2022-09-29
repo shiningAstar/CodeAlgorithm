@@ -93,11 +93,12 @@ void buildScopeTree(int l, int r, int node){
     template<typename T, T zero, T minv, T maxv, int Rt = 1>  //N个元素的区间，Rt记录类型 1区间和 2最大值 3最小值
     class STree{
         public:
-            vector<T> t;int l, r;
+            vector<T> t;int l, r; STree(){} 
+            template<typename Tp>void assign(vector<Tp> &v, int fst_idx, int lst_idx){
+                l = fst_idx; r = lst_idx;t.assign(4 * (r - l + 1), zero);build(v, l, r, 1);
+            }
             template<typename Tp>STree(vector<Tp> &v, int fst_idx, int lst_idx){
-                l = fst_idx; r = lst_idx;
-                t.assign(4 * (r - l + 1), zero);
-                build(v, l, r, 1);
+                assign(v, fst_idx, lst_idx);
             }
             void build(vector<T> &v, int l, int r, int node){
                 if(l == r){t[node] = v[l];return;}

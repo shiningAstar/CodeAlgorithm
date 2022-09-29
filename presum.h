@@ -82,7 +82,7 @@ void effect_update(){
 
 
 /*******************************/
-/* 前缀和 1-n 元素编号 */
+/* 前缀和，元素编号1-n，二分查找前缀和大于等于sum的第一个元素编号0~n-1 */
     template<typename T, typename Ts, Ts zero>
     typedef struct PSum{
         vector<Ts> s;int n;PSum(){} PSum(vector<T> &v){build(v);}

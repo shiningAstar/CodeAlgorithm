@@ -8,7 +8,6 @@ vector<int> prime;
 
 /* 分解质因数 */
 void trial_divisio_fac(int n){
-    pc = 0;
     int a=2;
     while(a*a<=n){
         while(n%a==0){
@@ -20,6 +19,9 @@ void trial_divisio_fac(int n){
 }
 
 //a、b的最大公约数
+/* stl 标准库algorithm算法提供最大公约数gcd和最小公倍数lcm */
+int gcd(int a, int b);
+int lcm(int a, int b);
 int gcd(int a, int b) {
     return b ? gcd(b, a % b) : a;
 }
