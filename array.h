@@ -71,6 +71,7 @@ template<typename Iter>void pt(Iter first,Iter last){for(;first!=last;++first)pt
 /* 函数短称 */
 #define eb emplace_back
 #define em emplace
+#define be(c) c.begin(),c.end()
 
 /* 类型定义 */
 typedef pair<int,int> pii;
