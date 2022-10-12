@@ -4,9 +4,9 @@
 /*******************************/
 /* 一维前缀和实现 */
 
-int n;
 vector<int> s;
 vector<int> nu;
+int n;
 
 void init_sum(){
     s.assign(n + 1, 0);
@@ -28,10 +28,9 @@ void preSumCal(vector<int> &nums){
 /*******************************/
 /* 二维前缀和实现 */
 
-int n;
-int m;
 vector<vector<int>> s;
 vector<vector<int>> nu;
+int n, m;
 
 void init_sum(){
     s.assign(n + 1, vector<int>(m + 1, 0));
@@ -55,9 +54,9 @@ void preSumCal(vector<vector<int>> &nums){
 /* 差分数组，记录数组变化量累计过程，用于数组范围变化多次，过程中不需查询，
    变化后直接整理元素最终值，查询要整理前续全部变化后再得到元素最终值 */
 
-int n;
 vector<int> d;
 vector<int> nu;
+int n;
 
 void init_dif() {
     n = nu.size();

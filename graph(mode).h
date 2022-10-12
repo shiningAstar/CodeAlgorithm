@@ -29,40 +29,39 @@ bool isConnected(int v, int w, vector<int> &id){
 /*******************************/
 //递归实现图邻接表深度优先遍历，visited记录节点是否遍历，from记录节点间路径，ccount连通分量，id每个节点连通分量查询是否连通
 
-int n;
 vector<vector<int>> adj;
+int n;
 vector<bool> vis;
-vector<int> from;
-vector<int> id;
+//vector<int> from;
+//vector<int> id;
 
-void __dfs(int ccount, int v){
-    //遍历v
-    //cout<<nodes[v].val;
-    vis[v] = true;
-    id[v] = ccount;
-    for(int i = 0; i < adj[v].size(); ++i){
-        int w = adj[v][i];
-        if(!vis[w]){
-            from[w] = v;
-            __dfs(ccount, w);
+void __dfs(/*int ccount,*/ int nd){
+    //cout<<nodes[v].val; //遍历v
+    //id[v] = ccount;
+    rep(i, 0, adj[nd].size()){
+        auto &p = adj[nd][i];
+        if(!vis[p]){
+            vis[p] = 1;
+            //from[w] = v;
+            __dfs(/*ccount,*/ p);
         }
     }
 }
 
 void dfsGraph(){
-    n = adj.size();
-    vis.assign(n, false);
-    from.assign(n, -1);
-    int ccount = 0;
-    id.assign(n, -1);
+    vis.assign(n, 0);
+    //from.assign(n, -1);
+    //int ccount = 0;
+    //id.assign(n, -1);
     //连通图只遍历一遍，不用记录ccount和id
     /*if(!vis[0])
         __dfs(ccount, 0);*/
 
     for(int i = 0; i < n; ++i)
         if(!vis[i]){
-            __dfs(ccount, i);
-            ++ccount;
+            vis[i] = 1;
+            __dfs(/*ccount,*/ i);
+            //++ccount;
         }
     
     //遍历后可查询是否连通和路径
@@ -77,50 +76,49 @@ void dfsGraph(){
 /*******************************/
 //递推实现图邻接表广度优先遍历，visited记录节点是否遍历，from记录节点间路径，ccount联通分量，id查询是否连通
 
-int n;
 vector<vector<int>> adj;
-vector<bool> vis;
-vector<int> from;
-vector<int> id;
+int n;
+vector<int> vis;
+//vector<int> from;
+//vector<int> id;
 
-void __bfs(int ccount, int v)
+void __bfs(/*int ccount, int v*/)
 {
-    queue<int> que;
-    vis[v] = true;
-    id[v] = ccount;
-    que.push(v);
-    while(!que.empty()){
-        int p = que.front();
-        que.pop();
-        //遍历w
-        //cout<<w;
-        for(int i = 0; i < adj[p].size(); ++i){
-            int w = adj[p][i];
-            if(!vis[w]){
-                vis[w] = true;
-                from[w] = p;
-                id[w] = ccount;
-                que.push(w);
+    vis.assign(n, 0);
+    queue<int> q;
+    //id[v] = ccount;
+    que.push(0);
+    vis[0] = 1;
+    while(!q.empty()){
+        auto &p = q.front();
+        //cout<<w; //遍历w
+        rep(i, 0, adj[p].size()){
+            auto &np = adj[p][i];
+            if(!vis[np]){
+                vis[np] = 1;
+                //from[w] = p;
+                //id[w] = ccount;
+                q.em(w);
             }
         }
+        q.pop();
     }
 }
 
 void bfsGraph()
 {
-    n = adj.size();
-    vis.assign(n, false);
-    from.assign(n, -1);
-    int ccount = 0;
-    id.assign(n, -1);
+    
+    //from.assign(n, -1);
+    //int ccount = 0;
+    //id.assign(n, -1);
     //连通图只遍历一遍，不用记录ccount和id
     /*if(!vis[0])
         __bfs(ccount, 0);*/
-    for(int i = 0; i < n; ++i)
+    /*for(int i = 0; i < n; ++i)
         if(!vis[i]){
             __bfs(ccount, i);
-            ++ccount;
-        }
+            //++ccount;
+        }*/
     //遍历后可查询是否连通和路径，广度优先遍历的路径是最短路径
     //if(isConnected(v, w))
     //vector<int> path;
@@ -139,30 +137,27 @@ void bfs(){
     /* 层节点遍历，如果层节点需排序可用set，
         如果每次遍历只需拿出最（大/小）值节点，可使用priority_queue不分层 */
     vector<int> ls;
+    /* 临时存放下一层节点，使用前置换到ls */
+    vector<int> lst;
+    int ln, p, pn;
     //set<int> ls;
     //priority_queue<int> ns;
 
     /* 初始置放第一层节点，如果只第一个为第一层，放0 */
-    ls.emplace_back(0);
-    //for(;;) ln.emplace_back();
+    ls.eb(0);
+    //for(;;) ls.emplace_back();
     
-    /* 临时存放下一层节点，使用前置换到ls */
-    vector<int> lt;
-    int n, m;
-    int p;
     while(!ls.empty()){
-        n = ls.size();
-        for(int i = 0; i < n; ++i){
-            p = ls[i];
-            m = adj[p].size();
-            for(int j = 0; j < m; ++j){
+        ln = ls.size();
+        rep(i, 0, ln){
+            p = ls[i], pn = adj[p].size();
+            rep(j, 0, pn){
                 /* 下一层节点放置lt暂存 */
-                lt.emplace_back(adj[p][j]);
+                lst.eb(adj[p][j]);
             }
         }
         /* 一层结束，暂存的下一层节点置换回ls */
-        ls.swap(lt);
-        lt.clear();
+        ls.swap(lst); lst.clear();
     }
 }
 
@@ -243,23 +238,40 @@ bool dfs(){
 /*******************************/
 /* 二维表格中移动问题移动数组方式 */
 
-int n;
-int m;
 vector<vector<int>> g;
-vector<vector<bool>> vis;
+int n, m;
+vector<vector<int>> vis;
 
 const int d[4][2] = {{0,-1},{-1,0},{0,1},{1,0}};   //移动数组
 
-void dfs(int i, j){
+void dfs(int r, int c){
     //执行点遍历
-    //if(g[i][j]?) return;   //移动终止条件
-    int ni, nj;
-    for(int k = 0; k < 4; ++k){
-        ni = d[k][0] + i; nj = d[k][1] + j;
-        if(ni >= 0 && ni < n && nj >= 0 && nj < m && !vis[ni][nj]){   //判断下一步移动点条件
-            vis = true;
-            dfs(i, j);
+    if(g[i][j]?) return;   //移动终止条件
+    int nr, nc;
+    rep(i, 0, 4){
+        nr = d[i][0] + r; nc = d[i][1] + c;
+        if(nr >= 0 && nr < n && nc >= 0 && nc < m && !vis[nr][nc]){   //判断下一步移动点条件
+            vis[nr][nc] = 1;
+            dfs(nr, nc);
         }
+    }
+}
+
+void bfs(){
+    queue<pii> q;
+    int nr, nc;
+    q.em(pii{r,c});
+    vis[r][c] = 1;
+    while(!q.empty()){
+        pii &p = q.front();
+        rep(i, 0, 4){
+            nr = d[i][0] + p.first; nc = d[i][1] + p.second;
+            if(nr >= 0 && nr < n && nc >= 0 && nc < m && !vis[nr][nc]){   //判断下一步移动点条件
+                vis[nr][nc] = 1;
+                q.em(pii{nr, nc});
+            }
+        }
+        q.pop();
     }
 }
 
@@ -267,7 +279,7 @@ void moveinGrid(vector<vector<int>> grid){
     g.swap(grid);
     n = g.size();
     m = g[0].size();
-    vis.assign(n, vector<bool>(m, false));
+    vis.assign(n, vector<int>(m, 0));
     dfs(0, 0);
 }
 

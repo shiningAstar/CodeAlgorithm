@@ -60,8 +60,11 @@ void idx_sort(vector<int> nums){
 
 /*******************************/
 /* 打印容器 */
-template<typename Iter>void pt(Iter it){cout<<*it<<" ";}
-template<typename Iter>void pt(Iter first,Iter last){for(;first!=last;++first)pt(first);cout<<endl;}
+template<typename Iter>void pt(Iter first,Iter last){for(;first!=last;++first)cout<<*first<<" ";cout<<endl;}
+template<typename Iter>void ptp(Iter first,Iter last){for(;first!=last;++first)cout<<"("<<first->first<<","<<first->second<<")";cout<<endl;}
+template<typename T>void ptv(T &t){cout<<t<<endl;}
+template<typename T, typename ...Ts>void ptv(T &t, Ts... rest){cout<<t<<" ";ptv(rest);}
+
 
 /* 循环宏 */
 #define rep(i,a,b) for(int i = a, __ = b; i < __; ++i)
@@ -72,6 +75,8 @@ template<typename Iter>void pt(Iter first,Iter last){for(;first!=last;++first)pt
 #define eb emplace_back
 #define em emplace
 #define be(c) c.begin(),c.end()
+#define ptc(c) pt(be(c))
+#define ptcp(c) ptp(be(c))
 
 /* 类型定义 */
 typedef pair<int,int> pii;
