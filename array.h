@@ -63,23 +63,30 @@ void idx_sort(vector<int> nums){
 template<typename Iter>void pt(Iter first,Iter last){for(;first!=last;++first)cout<<*first<<" ";cout<<endl;}
 template<typename Iter>void ptp(Iter first,Iter last){for(;first!=last;++first)cout<<"("<<first->first<<","<<first->second<<")";cout<<endl;}
 template<typename T>void ptv(T &t){cout<<t<<endl;}
-template<typename T, typename ...Ts>void ptv(T &t, Ts... rest){cout<<t<<" ";ptv(rest);}
-
-
+template<typename T, typename ...Ts>void ptv(T &t, Ts... rest){cout<<t<<" ";ptv(rest...);}
 /* 循环宏 */
 #define rep(i,a,b) for(int i = a, __ = b; i < __; ++i)
-#define rrep(i,b,a) for(int i = b; i >= a; --i)
+#define repe(i,a,b) for(int i = a, __ = b; i <= __; ++i)
+#define rrep(i,b,a) for(int i = b - 1; i >= a; --i)
+#define rrepe(i,b,a) for(int i = b; i >= a; --i)
 #define repc(it,ct) for(auto it = ct.begin(); it != ct.end(); ++it)
-
 /* 函数短称 */
 #define eb emplace_back
 #define em emplace
+#define pb push_back
 #define be(c) c.begin(),c.end()
 #define ptc(c) pt(be(c))
 #define ptcp(c) ptp(be(c))
-
 /* 类型定义 */
 typedef pair<int,int> pii;
+#define p1 first
+#define p2 second
+typedef vector<int> vi;typedef vector<vector<int>> vvi;typedef unordered_set<int> usi;
+typedef unordered_set<string> uss;typedef unordered_map<int, int> umii;typedef unordered_map<string, int> umsi;
+typedef unordered_map<int, string> umis;typedef unordered_map<string, string> umss;typedef set<int> si;
+typedef set<string> ss;typedef map<int, int> mii;typedef map<string, int> msi;typedef map<int, string> mis;typedef map<string, string> mss;
+#define def_vi(name,n,v) vi name = vi(n, v)
+#define def_vvi(name,n,m,v) vvi name = vvi(n, vi(m, v))
 
 /*******************************/
 
