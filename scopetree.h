@@ -132,55 +132,35 @@ void buildScopeTree(int l, int r, int node){
             }
     };
 
-    template<typename T, T zero, T minv, T maxv, int Rt = 1>  //N个元素的区间，Rt记录类型 1区间和 2最大值 3最小值
-    class STree{
-        public:
-            vector<T> t;int l, r;vector<T> b; vector<int> m; STree(){} 
+    /* 带懒惰更新标记，修改区间速度快，或修改多查询少速度快 */
+    template<typename T, T zero, T one, T minv, T maxv, int Rt = 1>class STree{  //N个元素的区间，Rt记录类型 1区间和 2最大值 3最小值
+    public: vector<T> t;int l, r;vector<T> a;vector<T> b; vector<int> m; STree(){} 
             template<typename Tp>void assign(vector<Tp> &v, int fst_idx, int lst_idx){
-                l = fst_idx; r = lst_idx;t.assign(4 * (r - l + 1), zero);b.assign(4 * (r - l + 1), zero);m.assign(4 * (r - l + 1), zero);build(v, l, r, 1);
-            }
-            template<typename Tp>STree(vector<Tp> &v, int fst_idx, int lst_idx){
-                assign(v, fst_idx, lst_idx);
-            }
+                l=fst_idx;r=lst_idx;t.assign(4*(r-l+1),zero);a.assign(4*(r-l+1),one);b.assign(4*(r-l+1),zero);m.assign(4*(r-l+1),zero);build(v,l,r,1);}
+            template<typename Tp>STree(vector<Tp> &v, int fst_idx, int lst_idx){assign(v, fst_idx, lst_idx);}
             template<typename Tp>void build(vector<Tp> &v, int l, int r, int node){
-                if(l == r){t[node] = v[l];return;}
-                int mid = l + ((r - l) >> 1);build(v, l, mid, 2 * node);build(v, mid + 1, r, 2 * node + 1);
-                if constexpr (Rt == 1)t[node] = t[2 * node] + t[2 * node + 1];
-                else if constexpr (Rt == 2)t[node] = max(t[2 * node], t[2 * node + 1]);
-                else if constexpr (Rt == 3)t[node] = min(t[2 * node], t[2 * node + 1]);
-            }
-            T search_add(int sl, int sr){return search<1>(sl, sr, l, r, 1);}
+                if(l==r){t[node]=v[l];return;}int mid=l+((r-l)>>1);build(v,l,mid,2*node);build(v,mid+1,r,2*node+1);
+                if constexpr (Rt==1)t[node]=t[2*node]+t[2*node+1];else if constexpr (Rt==2)t[node]=max(t[2*node],t[2*node+1]);else if constexpr (Rt==3)t[node]=min(t[2*node],t[2*node+1]);}
+            T search_add_mul(int sl, int sr){return search<1>(sl, sr, l, r, 1);}  //修改方式不同懒惰标记方式不一样，乘法加法查询用add_mul，设置值用ass
             T search_ass(int sl, int sr){return search<0>(sl, sr, l, r, 1);}
             template<int add = 1>T search(int sl, int sr, int l, int r, int node){
-                if(sl <= l && r <= sr){return t[node];}int mid = l + ((r - l) >> 1);
-                if constexpr (add == 1){if(b[node]){t[node * 2] += b[node] * (mid - l + 1), t[node * 2 + 1] += b[node] * (r - mid);
-                    b[node * 2] += b[node], b[node * 2 + 1] += b[node];b[node] = 0; }}
-                else if constexpr (add == 0){if(m[node]){t[node * 2] = b[node] * (mid - l + 1), t[node * 2 + 1] = b[node] * (r - mid);
-                    b[node * 2] = b[node], b[node * 2 + 1] = b[node];  m[node * 2] = m[node * 2 + 1] = 1;m[node] = 0;}}
-                T res;if constexpr (Rt == 1) res = zero;else if constexpr (Rt == 2) res = minv; else if constexpr (Rt == 3) res = maxv;
-                if(sl <= mid){if constexpr (Rt == 1)res += search<add>(sl, sr, l, mid, 2 * node);
-                    else if constexpr (Rt == 2)res = max(res, search<add>(sl, sr, l, mid, 2 * node));
-                    else if constexpr (Rt == 3)res = min(res, search<add>(sl, sr, l, mid, 2 * node));}
-                if(mid < sr){if constexpr (Rt == 1)res += search<add>(sl, sr, mid + 1, r, 2 * node + 1);
-                    else if constexpr (Rt == 2)res = max(res, search<add>(sl, sr, mid + 1, r, 2 * node + 1));
-                    else if constexpr (Rt == 3)res = min(res, search<add>(sl, sr, mid + 1, r, 2 * node + 1));}return res;
-            }
-            void update_add(int sl, int sr, T value){return update<1>(sl,sr,value,l,r,1);}
-            void update_ass(int sl, int sr, T value){return update<0>(sl,sr,value,l,r,1);}
-            void update_add(int node, T value){return update<1>(node,node,value,l,r,1);}
+                if(sl<=l&&r<=sr){return t[node];}int mid=l+((r-l)>>1);push_down<add>(l,r,node);T res;if constexpr (Rt==1)res=zero;else if constexpr (Rt==2)res=minv; else if constexpr (Rt==3)res=maxv;
+                if(sl<=mid){if constexpr (Rt==1)res+=search<add>(sl,sr,l,mid,2*node);else if constexpr (Rt==2)res=max(res,search<add>(sl,sr,l,mid,2*node));else if constexpr (Rt==3)res=min(res,search<add>(sl,sr,l,mid,2*node));}
+                if(mid<sr){if constexpr (Rt==1)res+=search<add>(sl,sr,mid+1,r,2*node+1);else if constexpr (Rt==2)res=max(res,search<add>(sl,sr,mid+1,r,2*node+1));else if constexpr (Rt==3)res=min(res,search<add>(sl,sr,mid+1,r,2*node+1));}return res;}
+            template<int add = 1>void push_down(int l,int r,int node){int mid=l+((r-l)>>1);if constexpr (add==1){if((a[node]!=1||b[node]!=0)&&l!=r){t[node*2]*=a[node];t[node*2]+=b[node]*(mid-l+1);t[node*2+1]*=a[node];t[node*2+1]+=b[node]*(r-mid);
+                    a[node*2]*=a[node];a[node*2+1]*=a[node];b[node*2]*=a[node];b[node*2]+=b[node];b[node*2+1]*=a[node];b[node*2+1]+=b[node];a[node]=1;b[node]=0;}}
+                else if constexpr (add==0){if(m[node]){t[node*2]=b[node]*(mid-l+1),t[node*2+1]=b[node]*(r-mid);b[node*2]=b[node],b[node*2+1]=b[node];m[node*2]=m[node*2+1]=1;m[node]=0;}}}
+            void update_add(int sl, int sr, T add){return update<1>(sl,sr,1,add,l,r,1);}
+            void update_mul(int sl, int sr, T mul){return update<1>(sl,sr,mul,0,l,r,1);}
+            void update_ass(int sl, int sr, T value){return update<0>(sl,sr,1,value,l,r,1);}
+            void update_add(int idx, T add){return update<1>(idx,idx,1,add,l,r,1);}
+            void update_mul(int idx, T mul){return update<1>(idx,idx,mul,0,l,r,1);}
             void update_ass(int node, T value){return update<0>(node,node,value,l,r,1);}
-            template<int add = 1>  void update(int sl, int sr, T value, int l, int r, int node){ //add 1修改增加value 0修改赋值value
-                if(sl <= l && r <= sr){if constexpr (add == 1) {t[node] += (r - l + 1) * value;b[node]+=value;}
-                else if constexpr (add == 0) {t[node] = (r - l + 1) * value;b[node]=value;}return;}int mid = l + ((r - l) >> 1);
-                if constexpr (add == 1){if(b[node] && l != r){t[node * 2] += b[node] * (mid - l + 1), t[node * 2 + 1] += b[node] * (r - mid);
-                    b[node * 2] += b[node], b[node * 2 + 1] += b[node];  b[node] = 0; }}
-                else if constexpr (add == 0){if(m[node]){t[node * 2] = b[node] * (mid - l + 1), t[node * 2 + 1] = b[node] * (r - mid);
-                    b[node * 2] = b[node], b[node * 2 + 1] = b[node];  m[node * 2] = m[node * 2 + 1] = 1;m[node] = 0;}}
-                if(sl <= mid) update<add>(sl, sr, value, l, mid, 2 * node);
-                if(mid < sr) update<add>(sl, sr, value, mid + 1, r, 2 * node + 1);
-                if constexpr (Rt == 1)t[node] = t[2 * node] + t[2 * node + 1];
-                else if constexpr (Rt == 2)t[node] = max(t[2 * node], t[2 * node + 1]);
-                else if constexpr (Rt == 3)t[node] = min(t[2 * node], t[2 * node + 1]);
+            template<int add_mul = 1>  void update(int sl, int sr, T mul, T add, int l, int r, int node){ //add 1修改value*mul+add 0修改赋值value
+                if(sl <= l && r <= sr){if constexpr (add_mul == 1) {t[node]*=mul;t[node]+=(r-l+1)*add;a[node]*=mul;b[node]*=mul;b[node]+=add;}
+                else if constexpr (add_mul == 0) {t[node]=(r-l+1)*add;b[node]=add;}return;}int mid = l + ((r - l) >> 1);push_down<add_mul>(l,r,node);
+                if(sl <= mid) update<add_mul>(sl, sr, mul, add, l, mid, 2 * node);if(mid < sr) update<add_mul>(sl, sr, mul, add, mid + 1, r, 2 * node + 1);
+                if constexpr (Rt == 1)t[node]=t[2*node]+t[2*node+1]; else if constexpr (Rt == 2)t[node]=max(t[2*node],t[2*node+1]);else if constexpr (Rt == 3)t[node]=min(t[2*node],t[2*node+1]);
             }
     };
 

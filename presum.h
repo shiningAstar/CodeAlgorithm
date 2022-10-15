@@ -79,9 +79,8 @@ void effect_update(){
 
 /*******************************/
 
-
 /*******************************/
-/* 前缀和，元素编号1-n，二分查找前缀和大于等于sum的第一个元素编号0~n-1 */
+/* 前缀和，元素编号0~n-1，二分查找前缀和大于等于sum的第一个元素编号0~n-1 */
     template<typename T, typename Ts, Ts zero>
     typedef struct PSum{
         vector<Ts> s;int n;PSum(){} PSum(vector<T> &v){build(v);}
@@ -90,8 +89,6 @@ void effect_update(){
         int binarysearch(Ts sum){int l=1,r=n;int mid;
             while(l <= r){mid=l+(r-l)/2;if(s[mid] >= sum)r = mid - 1;else l = mid + 1;}return l-1;}
     };
-
-
 /*******************************/
 
 #endif // PRESUM_H_INCLUDED

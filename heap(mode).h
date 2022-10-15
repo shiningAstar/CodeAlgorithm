@@ -370,7 +370,7 @@ void heapSort4(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
 
 
 /*********************************/
-/* 优先队列，可插入、弹出队头、删除中间元素 */
+/* 优先队列，可插入、弹出队头、删除中间元素，随机访问元素 */
     template<typename T, int MaxTop = 1> /* MaxTop = 0 最小堆 */
     class PQ {
     public:

@@ -31,4 +31,6 @@ void merge(int i, int j){
     if (rank[x] == rank[y] && x != y) rank[y]++;
 }
 
+
+
 #endif // UNIONFIND_H_INCLUDED
