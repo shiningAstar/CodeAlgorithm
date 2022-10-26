@@ -1,40 +1,30 @@
 #ifndef BINARYSEARCH_H_INCLUDED
 #define BINARYSEARCH_H_INCLUDED
 
-/* 二分查找 */
-
-#define lessBinary(t1, t2) (t1 < t2)
-#define lessEqualBinary(t1, t2) (t1 <= t2)
-#define greaterBinary(t1, t2) (t1 > t2)
-#define greaterEqualBinary(t1, t2) (t1 >= t2)
-#define equalBinary(t1, t2) (t1 == t2)
-
 //递推实现二分查找
 /*********************************/
 
-template<typename T>
-int binarySearch(vector<T> array, T target)
-{
-    int l = 0, r = array.size() - 1;
+int binarySearch(vector<int> arr, int t){
+    int l = 0, r = arr.size() - 1;
     int mid;
 
     /* 在[l,r]范围内查找target */
-    while(l <= r)
-    {
+    while(l <= r){
         mid = l + (r - l) / 2;
-        if(equalBinary(array[mid], target))
-            break;
-        else if(greaterBinary(array[mid], target))
-            r = mid - 1;
-        else
-            l = mid + 1;
+        /* 三种情况查找相等 */
+        /*if(arr[mid] == t) break;
+        else if(arr[mid] > t)) r = mid - 1;
+        else l = mid + 1;*/
+        /* 只有两种情况的判断，找大于(等于)目标值第一个即目标值右边的查找后左指针指向，
+           找小于(等于)目标值第一个即目标值左边的查找后右指针指向 */ 
+        if(arr[mid] >= t) r = mid - 1;  /* 右侧左移，右侧大于等于 */
+        else l = mid + 1;               /* 左侧右移，左侧小于 */
     }
-
-    if(l > r)
-        return -1;
-    else
-        return mid;
-
+    /*两种情况判断，左侧最后一个r指向，右侧第一个l指向 */
+    /* return l/r; */
+    /* 三种情况判断相等 */
+    if(l > r) return -1;
+    else return mid;
 }
 
 /*********************************/

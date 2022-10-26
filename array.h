@@ -57,7 +57,6 @@ void idx_sort(vector<int> nums){
 
 /*******************************/
 
-
 /*******************************/
 /* 打印容器 */
 template<typename Iter>void pt(Iter first,Iter last){for(;first!=last;++first)cout<<*first<<" ";cout<<endl;}
@@ -78,17 +77,14 @@ template<typename T, typename ...Ts>void ptv(T &t, Ts... rest){cout<<t<<" ";ptv(
 #define ptc(c) pt(be(c))
 #define ptcp(c) ptp(be(c))
 /* 类型定义 */
-typedef pair<int,int> pii;
 #define p1 first
 #define p2 second
-typedef vector<int> vi;typedef vector<vector<int>> vvi;typedef unordered_set<int> usi;
+typedef pair<int,int> pii;typedef vector<int> vi;typedef vector<vector<int>> vvi;typedef unordered_set<int> usi;
 typedef unordered_set<string> uss;typedef unordered_map<int, int> umii;typedef unordered_map<string, int> umsi;
 typedef unordered_map<int, string> umis;typedef unordered_map<string, string> umss;typedef set<int> si;
 typedef set<string> ss;typedef map<int, int> mii;typedef map<string, int> msi;typedef map<int, string> mis;typedef map<string, string> mss;
 #define def_vi(name,n,v) vi name = vi(n, v)
 #define def_vvi(name,n,m,v) vvi name = vvi(n, vi(m, v))
-
 /*******************************/
-
 
 #endif //ARRAY_H_INCLUDED
