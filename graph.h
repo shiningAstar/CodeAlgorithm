@@ -265,7 +265,7 @@ void bfs(){
     while(!q.empty()){
         pii &p = q.front();
         rep(i, 0, 4){
-            nr = d[i][0] + p.first; nc = d[i][1] + p.second;
+            nr = d[i][0] + p.p1; nc = d[i][1] + p.p2;
             if(nr >= 0 && nr < n && nc >= 0 && nc < m && !vis[nr][nc]){   //判断下一步移动点条件
                 vis[nr][nc] = 1;
                 q.em(pii{nr, nc});
@@ -339,7 +339,7 @@ void moveinGrid(vector<vector<int>> grid){
         n = noden;
         a.assign(n);        //节点号0~n-1
         //a.assign(n + 1);  //节点号1~n
-        np.assign(n);       //节点号0~n-1
+        //np.assign(n);       //节点号0~n-1
         //np.assign(n + 1);   //节点号1~n
         int pn = p.size();
         for(int i = 0; i < pn; ++i) a[p[i][0]].emplace_back(p[i][1]);

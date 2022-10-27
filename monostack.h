@@ -19,7 +19,6 @@ void monostack()
         }
         st.emplace(num);
     }
-
 }
 
 /*******************************/
