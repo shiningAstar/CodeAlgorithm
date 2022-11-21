@@ -12,8 +12,8 @@
   示例题目 [leetcode 674](https://leetcode.cn/problems/longest-continuous-increasing-subsequence/)
   
 - **最小递增（非递减）子序列**
-  求字典序最小的递增子序列，单调栈（最小栈），最后栈中元素是每个位置都是最小的递增子序列，但不保证最长
-  示例题目 [leetcode 1081](https://leetcode.cn/problems/smallest-subsequence-of-distinct-characters/)
+  求字典序最小的递增子序列，单调栈（最小栈），最后栈中元素是每个位置都是最小的递增子序列，但不保证最长  
+  示例题目 [leetcode 1081](https://leetcode.cn/problems/smallest-subsequence-of-distinct-characters/)  
 
 - **最大连续子段和**  
   整数数组遍历数组，整数计入和，负数计入后小于等于0不计入，因为在负数后位置开始记录比当前包含负数子段大，  

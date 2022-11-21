@@ -391,7 +391,7 @@ void heapSort4(vector<int> &arr, vector<int> &heap, vector<int> &heappos){
             else c.pop_back(); return t;
         }
         T pop_lz(){
-            while(!empty_lz() && !c.empty() && !c_e.empty() && c.front() == c_e.front){
+            while(!empty_lz() && !c.empty() && !c_e.empty() && c.front() == c_e.front()){
                 pop(); T t(move(c_e.front())); if(c_e.size() > 1)
                 {T tt(move(c_e.back())); c_e.pop_back(); __shift_down(c_e.begin(), c_e.end(), size_t(0), move(tt));}
                 else c_e.pop_back();

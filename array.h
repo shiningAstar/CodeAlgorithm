@@ -39,30 +39,34 @@ void enum_seq(){
 /*******************************/
 /* 索引排序 */
 
-vector<int> nus;
-vector<int> oidx;
-int n;
-
-bool cmp(const int &x1, const int &x2){
-    return nus[x1] < nus[x2];
-}
-
-void idx_sort(vector<int> nums){
-    nus.swap(nums);
-    n = nus.size();
-    oidx.assign(n);
-    for(int i = 0; i < n; ++i) oidx[i] = i;
-    sort(oidx.begin(), oidx.end(), cmp);
+void idx_sort(vi nums){
+    int n = nums.size();
+    vi oidx(n);   /* oidx为nums的排序索引数组 */
+    iota(be(oidx),0);
+    sort(be(oidx), [&nums](const int &x1, const int &x2){return nums[x1]<nums[x2];});
 }
 
 /*******************************/
 
 /*******************************/
+/* 类型定义 */
+#define p1 first
+#define p2 second
+#define t1(t) get<0>(t)
+#define t2(t) get<1>(t)
+#define t3(t) get<2>(t)
+#define def_tl(name,type...) using name=tuple<type>
+#define def_pair(name,type1,type2) using name=pair<type1,type2>
+using pii=pair<int,int>;using tiii=tuple<int,int,int>;using vi=vector<int>;using vvi=vector<vector<int>>;using usi=unordered_set<int>;
+using uss=unordered_set<string>;using umii=unordered_map<int, int>;using umsi=unordered_map<string, int>;
+using umis=unordered_map<int, string>;using umss=unordered_map<string, string>;using si=set<int>;
+using ss=set<string>;using mii=map<int, int>;using msi=map<string, int>;using mis=map<int, string>;using mss=map<string, string>;
+#define def_vi(name,n,v) vi name = vi(n, v)
+#define def_vvi(name,n,m,v) vvi name = vvi(n, vi(m, v))
 /* 打印容器 */
 template<typename Iter>void pt(Iter first,Iter last){for(;first!=last;++first)cout<<*first<<" ";cout<<endl;}
-template<typename Iter>void ptp(Iter first,Iter last){for(;first!=last;++first)cout<<"("<<first->first<<","<<first->second<<")";cout<<endl;}
-template<typename T>void ptv(T &t){cout<<t<<endl;}
-template<typename T, typename ...Ts>void ptv(T &t, Ts... rest){cout<<t<<" ";ptv(rest...);}
+template<typename Iter>void ptp(Iter first,Iter last){for(;first!=last;++first)cout<<"("<<first->p1<<","<<first->p2<<")";cout<<endl;}
+void ptv(){cout<<endl;}template<typename T, typename ...Ts>void ptv(const T &t, Ts... rest){cout<<t<<" ";ptv(rest...);}
 /* 循环宏 */
 #define rep(i,a,b) for(int i = a, __ = b; i < __; ++i)
 #define repe(i,a,b) for(int i = a, __ = b; i <= __; ++i)
@@ -74,17 +78,11 @@ template<typename T, typename ...Ts>void ptv(T &t, Ts... rest){cout<<t<<" ";ptv(
 #define em emplace
 #define pb push_back
 #define be(c) c.begin(),c.end()
+#define ptcc(c,it,prt) {auto f=[](decltype(c.begin()) it){prt;cout<<" ";}; for(auto iter=c.begin();iter!=c.end();++iter)f(iter);cout<<endl;}
 #define ptc(c) pt(be(c))
 #define ptcp(c) ptp(be(c))
-/* 类型定义 */
-#define p1 first
-#define p2 second
-typedef pair<int,int> pii;typedef vector<int> vi;typedef vector<vector<int>> vvi;typedef unordered_set<int> usi;
-typedef unordered_set<string> uss;typedef unordered_map<int, int> umii;typedef unordered_map<string, int> umsi;
-typedef unordered_map<int, string> umis;typedef unordered_map<string, string> umss;typedef set<int> si;
-typedef set<string> ss;typedef map<int, int> mii;typedef map<string, int> msi;typedef map<int, string> mis;typedef map<string, string> mss;
-#define def_vi(name,n,v) vi name = vi(n, v)
-#define def_vvi(name,n,m,v) vvi name = vvi(n, vi(m, v))
+#define riter(it) make_reverse_iterator(it)
+#define eriter(ct,rit) rit = riter(ct.erase((++rit).base()))
 /*******************************/
 
 #endif //ARRAY_H_INCLUDED
